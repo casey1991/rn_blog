@@ -1,4 +1,3 @@
-import { store } from "./storeCreator";
-export const createStore = () => {
-  return store;
-};
+import { createStore } from "redux";
+import { reducers } from "./reducers";
+export const store = createStore(reducers);
