@@ -1,8 +1,12 @@
 import React, { Component } from "react";
-import { View, Text, Button } from "react-native";
-export class LoginScreen extends Component {
+import { View, Button } from "react-native";
+import { connect } from "react-redux";
+import { LoginForm } from "../../Components/Forms/LoginForm";
+
+class Login extends Component {
   componentDidMount() {
     console.log("login componentDidMount");
+    console.log(this.props);
   }
   componentWillUnmount() {
     console.log("login componentWillUnmount");
@@ -14,11 +18,15 @@ export class LoginScreen extends Component {
   render() {
     return (
       <View>
-        <Text>hello login page</Text>
-        <Text>hello login page</Text>
-        <Text>hello login page</Text>
+        <LoginForm />
         <Button title="LOGIN" onPress={this._login} />
       </View>
     );
   }
 }
+const mapStateToProps = state => ({ ...state });
+const mapDispatchToProps = () => ({});
+export const LoginScreen = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Login);

@@ -1,8 +1,10 @@
 import React, { Component } from "react";
-import { View, Text, Button } from "react-native";
-export class HomeScreen extends Component {
+import { View, Button } from "react-native";
+import { connect } from "react-redux";
+class Home extends Component {
   componentDidMount() {
     console.log("home componentDidMount");
+    console.log(this.props);
   }
   componentWillUnmount() {
     console.log("home componentWillUnmount");
@@ -14,11 +16,14 @@ export class HomeScreen extends Component {
   render() {
     return (
       <View>
-        <Text>hello login</Text>
-        <Text>hello login</Text>
-        <Text>hello login</Text>
         <Button onPress={this._logout} title="LOGOUT" />
       </View>
     );
   }
 }
+const mapStateToProps = state => ({ ...state });
+const mapDispatchToProps = () => ({});
+export const HomeScreen = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Home);
