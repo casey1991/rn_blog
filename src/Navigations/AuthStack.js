@@ -4,7 +4,5 @@ export const AuthStack = createStackNavigator(
   {
     Login: LoginScreen
   },
-  {
-    headerMode: "none"
-  }
+  {}
 );

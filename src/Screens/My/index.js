@@ -1,22 +1,20 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Button } from "react-native-elements";
-import { LoginForm } from "../../Components/Forms/LoginForm";
 import { SafeAreaView } from "react-navigation";
 import { Colors } from "../../Themes";
 
-class Login extends Component {
-  _login = () => {
+class My extends Component {
+  _logout = () => {
     const { navigation } = this.props;
-    navigation.navigate("AppStack");
+    navigation.navigate("AuthStack");
   };
   render() {
     return (
       <SafeAreaView forceInset={{ top: "always", bottom: "always" }}>
-        <LoginForm />
         <Button
-          title="LOGIN"
-          onPress={this._login}
+          title="LOGOUT"
+          onPress={this._logout}
           backgroundColor={Colors.PRIMARY}
         />
       </SafeAreaView>
@@ -25,7 +23,7 @@ class Login extends Component {
 }
 const mapStateToProps = state => ({ ...state });
 const mapDispatchToProps = () => ({});
-export const LoginScreen = connect(
+export const MyScreen = connect(
   mapStateToProps,
   mapDispatchToProps
-)(Login);
+)(My);
