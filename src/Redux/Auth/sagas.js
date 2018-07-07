@@ -25,7 +25,12 @@ export const getCurrentUser = function*() {
   function* onFailed(data) {}
   yield handleResponse(response)(onSuccess, onFailed);
 };
+export const logout = function*() {
+  // now juse reset state
+  yield put(Actions.reset());
+};
 export const authSaga = function*() {
   yield takeEvery(Types.LOGIN, login);
   yield takeEvery(Types.GET_CURRENT_USER, getCurrentUser);
+  yield takeEvery(Types.LOGOUT, logout);
 };

@@ -15,11 +15,15 @@ const setToken = (state, action) => {
 const setTokenExpire = (state, action) => {
   return state.set("tokenExpireIn", action.payload);
 };
+const reset = () => {
+  return defaultState;
+};
 export default handleActions(
   {
     [Types.SET_USER]: setUser,
     [Types.SET_TOKEN]: setToken,
-    [Types.SET_TOKEN_EXPIRE]: setTokenExpire
+    [Types.SET_TOKEN_EXPIRE]: setTokenExpire,
+    [Types.RESET]: reset
   },
   defaultState
 );
