@@ -4,10 +4,10 @@ import { Button } from "react-native-elements";
 import { SafeAreaView } from "react-navigation";
 import { Colors } from "../../Themes";
 
-class My extends Component {
+class Profile extends Component {
   _logout = () => {
     const { navigation } = this.props;
-    navigation.navigate("AuthStack");
+    navigation.navigate("Login");
   };
   render() {
     return (
@@ -23,7 +23,7 @@ class My extends Component {
 }
 const mapStateToProps = state => ({ ...state });
 const mapDispatchToProps = () => ({});
-export const MyScreen = connect(
+export const ProfileScreen = connect(
   mapStateToProps,
   mapDispatchToProps
-)(My);
+)(Profile);

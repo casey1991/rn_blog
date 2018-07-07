@@ -1,7 +1,7 @@
 import { createBottomTabNavigator } from "react-navigation";
-import { HomeScreen } from "../Screens/Home";
-import { MyScreen } from "../Screens/My";
+import { HomeStack } from "./HomeStack";
+import { MineStack } from "./MineStack";
 export const AppStack = createBottomTabNavigator({
-  Home: HomeScreen,
-  My: MyScreen
+  HomeStack,
+  MineStack
 });

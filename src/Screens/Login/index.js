@@ -1,27 +1,34 @@
 import React, { Component } from "react";
+import { View } from "react-native";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { Button } from "react-native-elements";
 import { LoginForm } from "../../Components/Forms/LoginForm";
-import { SafeAreaView } from "react-navigation";
 import { Colors } from "../../Themes";
-import { login } from "../../Redux/Auth/actions";
+import { Actions } from "../../Redux/Auth/actions";
+import { store } from "../../Redux/index";
 
 class Login extends Component {
+  componentDidUpdate(prevProps) {
+    const { user, navigation } = this.props;
+    if (user && !prevProps.user) {
+      navigation.goBack(null);
+    }
+  }
   _login = () => {
     const { login, loginForm } = this.props;
     login(loginForm.values);
   };
   render() {
     return (
-      <SafeAreaView forceInset={{ top: "always", bottom: "always" }}>
+      <View>
         <LoginForm />
         <Button
           title="LOGIN"
           onPress={this._login}
           backgroundColor={Colors.PRIMARY}
         />
-      </SafeAreaView>
+      </View>
     );
   }
 }
@@ -33,7 +40,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
-      login: login
+      login: Actions.login
     },
     dispatch
   );

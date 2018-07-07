@@ -4,10 +4,6 @@ import { connect } from "react-redux";
 import { SafeAreaView } from "react-navigation";
 
 class Home extends Component {
-  _logout = () => {
-    const { navigation } = this.props;
-    navigation.navigate("AuthStack");
-  };
   render() {
     return <SafeAreaView forceInset={{ top: "always" }} />;
   }

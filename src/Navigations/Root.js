@@ -1,8 +1,9 @@
-import { createSwitchNavigator } from "react-navigation";
-import { AuthStack } from "./AuthStack";
+import { createStackNavigator } from "react-navigation";
 import { AppStack } from "./AppStack";
 
-export const Root = createSwitchNavigator({
-  AppStack: AppStack,
-  AuthStack: AuthStack
-});
+export const Root = createStackNavigator(
+  {
+    AppStack
+  },
+  { headerMode: "none" }
+);

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { reduxForm, Field } from "redux-form";
-import { View, StyleSheet, TextInput } from "react-native";
+import { View, StyleSheet } from "react-native";
+import { TextInput } from "../Form/TextInput";
 class Login extends Component {
   render() {
     return (
@@ -14,7 +15,7 @@ class Login extends Component {
         <Field
           name="password"
           component={TextInput}
-          type="text"
+          type="password"
           placeholder="Password"
         />
       </View>
@@ -23,5 +24,9 @@ class Login extends Component {
 }
 const styles = StyleSheet.create({});
 export const LoginForm = reduxForm({
-  form: "login"
+  form: "login",
+  initialValues: {
+    email: "email@email.com",
+    password: "abc123"
+  }
 })(Login);

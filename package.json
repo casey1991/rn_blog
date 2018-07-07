@@ -17,6 +17,7 @@
     "redux-actions": "^2.4.0",
     "redux-devtools-extension": "^2.13.5",
     "redux-form": "^7.4.2",
-    "redux-saga": "^0.16.0"
+    "redux-saga": "^0.16.0",
+    "seamless-immutable": "^7.1.3"
   }
 }
