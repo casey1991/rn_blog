@@ -6,18 +6,18 @@ import { UserCard } from "./Components/UserCard";
 import { Actions } from "../../Redux/Auth/actions";
 
 class Profile extends Component {
-  _logout = () => {
-    const { logout } = this.props;
-    logout();
-  };
   _login = () => {
     const { navigation } = this.props;
     navigation.navigate("Login");
   };
+  _setting = () => {
+    const { navigation } = this.props;
+    navigation.navigate("Setting");
+  };
   _onUserCardPress = () => {
     const { user } = this.props;
     if (user) {
-      this._logout();
+      this._setting();
     } else {
       this._login();
     }

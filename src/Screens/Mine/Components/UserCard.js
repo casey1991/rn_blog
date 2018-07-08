@@ -13,14 +13,14 @@ export class UserCard extends Component {
   _renderWithUser = () => {
     const { user } = this.props;
     return (
-      <View>
+      <View styles={[styles.rightPanel]}>
         <Text h4>{user.name}</Text>
       </View>
     );
   };
   _renderWithoutUser = () => {
     return (
-      <View>
+      <View styles={[styles.rightPanel]}>
         <Text h4>Login</Text>
       </View>
     );
@@ -44,5 +44,7 @@ const styles = StyleSheet.create({
     alignItems: "center"
   },
   avatarContainer: {},
-  rightPanel: {}
+  rightPanel: {
+    marginLeft: 10
+  }
 });

@@ -6,7 +6,6 @@ import { Button } from "react-native-elements";
 import { LoginForm } from "../../Components/Forms/LoginForm";
 import { Colors } from "../../Themes";
 import { Actions } from "../../Redux/Auth/actions";
-import { store } from "../../Redux/index";
 
 class Login extends Component {
   componentDidUpdate(prevProps) {
