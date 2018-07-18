@@ -1,11 +1,16 @@
 import React, { Component } from "react";
-import { Button } from "react-native";
+import { View } from "react-native";
+import { Button } from "react-native-elements";
 import { connect } from "react-redux";
 import { SafeAreaView } from "react-navigation";
 
 class Home extends Component {
   render() {
-    return <SafeAreaView forceInset={{ top: "always" }} />;
+    return (
+      <View>
+        <Button rounded />
+      </View>
+    );
   }
 }
 const mapStateToProps = state => ({ ...state });
