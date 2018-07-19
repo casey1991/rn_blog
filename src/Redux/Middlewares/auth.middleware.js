@@ -1,3 +1,4 @@
+import NavigationServices from "../../Services/NavigationServices";
 export const authMiddleware = store => next => action => {
   const { meta } = action;
   let result = null;
@@ -10,7 +11,7 @@ export const authMiddleware = store => next => action => {
       result = next(action);
     } else {
       //// maybe we should working with navigation ,now just pass do nothing
-      result = next(action);
+      result = NavigationServices.navigate("Login");
     }
   } else {
     result = next(action); // other actions
