@@ -1,19 +1,19 @@
 export const authMiddleware = store => next => action => {
   const { meta } = action;
-  const result = null;
+  let result = null;
   if (meta && meta.auth) {
     // this action must authed, so we check store token
     const state = store.getState();
     if (state.auth.token) {
       // pass
-      // maybe we should working with navigation now just pass do nothing
-      next();
+      // maybe we should working with navigation ,now just pass do nothing
+      result = next(action);
     } else {
-      //// maybe we should working with navigation now just pass do nothing
-      next();
+      //// maybe we should working with navigation ,now just pass do nothing
+      result = next(action);
     }
   } else {
-    const result = next(action); // other actions
+    result = next(action); // other actions
   }
   return result;
 };
