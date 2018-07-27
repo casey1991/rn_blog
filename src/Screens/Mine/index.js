@@ -8,7 +8,7 @@ import { Actions } from "../../Redux/Auth/actions";
 class Profile extends Component {
   _login = () => {
     const { navigation } = this.props;
-    navigation.navigate("Login");
+    navigation.navigate("AuthStack");
   };
   _setting = () => {
     const { navigation } = this.props;

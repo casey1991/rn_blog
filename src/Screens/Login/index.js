@@ -2,10 +2,12 @@ import React, { Component } from "react";
 import { View } from "react-native";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { Button } from "react-native-elements";
+import { Button, Icon } from "react-native-elements";
 import { LoginForm } from "../../Components/Forms/LoginForm";
 import { Colors } from "../../Themes";
 import { Actions } from "../../Redux/Auth/actions";
+import { Toolbar } from "../../Components/Toolbars/Toolbar";
+import { Actionbar } from "../../Components/Toolbars/Actionbars/Actionbar";
 
 class Login extends Component {
   componentDidUpdate(prevProps) {
