@@ -1,9 +1,14 @@
 import { createStackNavigator } from "react-navigation";
 import { AppStack } from "./AppStack";
+import { AuthStack } from "./AuthStack";
 
 export const Root = createStackNavigator(
   {
-    AppStack
+    AppStack,
+    AuthStack
   },
-  { headerMode: "none" }
+  {
+    headerMode: "none",
+    mode: "modal"
+  }
 );
