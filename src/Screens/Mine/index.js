@@ -4,8 +4,12 @@ import { bindActionCreators } from "redux";
 import { View } from "react-native";
 import { UserCard } from "./Components/UserCard";
 import { Actions } from "../../Redux/Auth/actions";
+import { Toolbar } from "../../Components/Toolbars/Toolbar";
 
 class Profile extends Component {
+  static navigationOptions = () => ({
+    header: () => <Toolbar />
+  });
   _login = () => {
     const { navigation } = this.props;
     navigation.navigate("AuthStack");

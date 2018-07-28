@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import { View } from "react-native";
+import { StatusBar, View } from "react-native";
 import { Appbar } from "react-native-paper";
-import { styles } from "./Toolbar.styles";
+import { styles, statusBarBackgroundColor } from "./Toolbar.styles";
 import { SafeAreaView } from "react-navigation";
 
 export class Toolbar extends Component {
@@ -12,8 +12,17 @@ export class Toolbar extends Component {
   render() {
     const { children } = this.props;
     return (
-      <SafeAreaView style={[styles.container]} forceInset={{ top: "always" }}>
-        <Appbar>{children}</Appbar>
+      <SafeAreaView
+        style={[styles.container]}
+        forceInset={{ top: "always", bottom: "never" }}
+      >
+        <View>
+          <StatusBar
+            barStyle="light-content"
+            backgroundColor={statusBarBackgroundColor}
+          />
+          <Appbar>{children}</Appbar>
+        </View>
       </SafeAreaView>
     );
   }

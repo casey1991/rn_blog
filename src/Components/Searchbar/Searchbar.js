@@ -12,7 +12,10 @@ export class Searchbar extends Component {
 
   render() {
     return (
-      <SafeAreaView forceInset={{ top: "always" }} style={[styles.container]}>
+      <SafeAreaView
+        forceInset={{ top: "always", bottom: "never" }}
+        style={[styles.container]}
+      >
         <StatusBar
           barStyle="light-content"
           backgroundColor={statusBarBackgroundColor}

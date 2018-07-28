@@ -1,5 +1,10 @@
 import { createStackNavigator } from "react-navigation";
 import { HomeScreen } from "../Screens/Home";
-export const HomeStack = createStackNavigator({
-  Home: HomeScreen
-});
+export const HomeStack = createStackNavigator(
+  {
+    Home: HomeScreen
+  },
+  {
+    // headerMode: "none"
+  }
+);

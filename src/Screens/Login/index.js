@@ -7,9 +7,20 @@ import { LoginForm } from "../../Components/Forms/LoginForm";
 import { Colors } from "../../Themes";
 import { Actions } from "../../Redux/Auth/actions";
 import { Toolbar } from "../../Components/Toolbars/Toolbar";
-import { Actionbar } from "../../Components/Toolbars/Actionbars/Actionbar";
+import { ToolbarBackAction } from "../../Components/Toolbars/ToolbarBackAction";
 
 class Login extends Component {
+  static navigationOptions = ({ navigation }) => ({
+    header: () => (
+      <Toolbar>
+        <ToolbarBackAction
+          onPress={() => {
+            navigation.goBack(null);
+          }}
+        />
+      </Toolbar>
+    )
+  });
   componentDidUpdate(prevProps) {
     const { user, navigation } = this.props;
     if (user && !prevProps.user) {
