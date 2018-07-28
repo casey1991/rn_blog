@@ -14,6 +14,7 @@ class Login extends Component {
     header: () => (
       <Toolbar>
         <ToolbarBackAction
+          dark
           onPress={() => {
             navigation.goBack(null);
           }}
