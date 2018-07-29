@@ -4,7 +4,20 @@ import { HomeScreen } from "../Screens/Main/Home";
 import { MessagesScreen } from "../Screens/Main/Messages";
 import { ProfileScreen } from "../Screens/Main/Mine";
 export const MainStack = createMaterialBottomTabNavigator({
-  Home: createStackNavigator({ HomeScreen }),
-  Messages: createStackNavigator({ MessagesScreen }),
-  Profile: createStackNavigator({ ProfileScreen })
+  Home: {
+    screen: createStackNavigator({ HomeScreen }),
+    navigationOptions: { title: "Home" }
+  },
+  Messages: {
+    screen: createStackNavigator({ MessagesScreen }),
+    navigationOptions: {
+      title: "Message"
+    }
+  },
+  Profile: {
+    screen: createStackNavigator({ ProfileScreen }),
+    navigationOptions: {
+      title: "Mine"
+    }
+  }
 });
