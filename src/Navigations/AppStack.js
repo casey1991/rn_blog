@@ -1,14 +1,12 @@
-import { createMaterialBottomTabNavigator } from "react-navigation-material-bottom-tabs";
-import { HomeStack } from "./HomeStack";
-import { MineStack } from "./MineStack";
-import { MessageStack } from "./MessageStack";
-export const AppStack = createMaterialBottomTabNavigator(
+import { createStackNavigator } from "react-navigation";
+import { MainStack } from "./MainStack";
+import { AuthStack } from "./AuthStack";
+import { ProfileStack } from "./ProfileStack";
+export const AppStack = createStackNavigator(
   {
-    HomeStack,
-    MessageStack,
-    MineStack
+    MainStack,
+    AuthStack,
+    ProfileStack
   },
-  {
-    // headerMode: "none"
-  }
+  { headerMode: "none" }
 );

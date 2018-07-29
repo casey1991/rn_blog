@@ -16,7 +16,7 @@ class Profile extends Component {
   };
   _setting = () => {
     const { navigation } = this.props;
-    navigation.navigate("Setting");
+    navigation.navigate("ProfileStack");
   };
   _onUserCardPress = () => {
     const { user } = this.props;

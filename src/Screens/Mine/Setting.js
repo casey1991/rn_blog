@@ -2,30 +2,40 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { View } from "react-native";
-import { Button } from "react-native-elements";
+import { Toolbar } from "../../Components/Toolbars/Toolbar";
+import { ToolbarBackAction } from "../../Components/Toolbars/ToolbarBackAction";
+import { Button } from "../../Components/Common/Button/Button";
 import { Actions } from "../../Redux/Auth/actions";
 import { Colors } from "../../Themes";
 
 class Setting extends Component {
+  static navigationOptions = ({ navigation }) => ({
+    header: () => (
+      <Toolbar>
+        <ToolbarBackAction
+          dark
+          onPress={() => {
+            navigation.goBack(null);
+          }}
+        />
+      </Toolbar>
+    )
+  });
   componentDidUpdate(prevProps) {
     const { user, navigation } = this.props;
     if (prevProps.user && !user) {
-      navigation.goBack();
+      navigation.goBack(null);
     }
   }
   _logout = () => {
-    const { logout } = this.props;
+    const { logout, navigation } = this.props;
     logout();
   };
   render() {
     const { logout } = this.props;
     return (
       <View>
-        <Button
-          title="LOGOUT"
-          onPress={this._logout}
-          backgroundColor={Colors.PRIMARY}
-        />
+        <Button onPress={this._logout}>LOGOUT</Button>
       </View>
     );
   }
