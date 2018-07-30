@@ -1,11 +1,11 @@
 import { createStackNavigator } from "react-navigation";
 import { MainStack } from "./MainStack";
-// import { AuthStack } from "./AuthStack";
+import { ArticleStack } from "./ArticleStack";
 import { ProfileStack } from "./ProfileStack";
 export const AppStack = createStackNavigator(
   {
     MainStack,
-    // AuthStack,
+    ArticleStack,
     ProfileStack
   },
   {

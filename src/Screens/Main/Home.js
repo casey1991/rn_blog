@@ -14,16 +14,16 @@ class Home extends Component {
     header: () => <Searchbar />
   });
   render() {
-    const { createArticle } = this.props;
+    const { createArticle, navigation } = this.props;
     return (
       <View>
         <Button
           raised={false}
           onPress={() => {
-            createArticle();
+            navigation.navigate("ArticleStack");
           }}
         >
-          Button
+          Article One
         </Button>
         <FloatActionButton
           onPress={() => {
