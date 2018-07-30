@@ -3,21 +3,29 @@ import { createStackNavigator } from "react-navigation";
 import { HomeScreen } from "../Screens/Main/Home";
 import { MessagesScreen } from "../Screens/Main/Messages";
 import { ProfileScreen } from "../Screens/Main/Mine";
-export const MainStack = createMaterialBottomTabNavigator({
-  Home: {
-    screen: createStackNavigator({ HomeScreen }),
-    navigationOptions: { title: "Home" }
-  },
-  Messages: {
-    screen: createStackNavigator({ MessagesScreen }),
-    navigationOptions: {
-      title: "Message"
+import { Colors } from "../Themes";
+export const MainStack = createMaterialBottomTabNavigator(
+  {
+    Home: {
+      screen: createStackNavigator({ HomeScreen }),
+      navigationOptions: { title: "Home" }
+    },
+    Messages: {
+      screen: createStackNavigator({ MessagesScreen }),
+      navigationOptions: {
+        title: "Message"
+      }
+    },
+    Profile: {
+      screen: createStackNavigator({ ProfileScreen }),
+      navigationOptions: {
+        title: "Mine"
+      }
     }
   },
-  Profile: {
-    screen: createStackNavigator({ ProfileScreen }),
-    navigationOptions: {
-      title: "Mine"
+  {
+    barStyle: {
+      backgroundColor: Colors.PRIMARY
     }
   }
-});
+);
