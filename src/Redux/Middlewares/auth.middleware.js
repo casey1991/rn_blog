@@ -7,7 +7,7 @@ export const authMiddleware = store => next => action => {
     if (state.auth.token) {
       result = next(action);
     } else {
-      result = NavigationServices.navigate("AuthStack");
+      NavigationServices.navigate("AuthStack");
     }
   } else {
     result = next(action);
