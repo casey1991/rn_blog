@@ -8,6 +8,7 @@ import { Colors } from "../../Themes";
 import { Actions } from "../../Redux/Auth/actions";
 import { Toolbar } from "../../Components/Toolbars/Toolbar";
 import { ToolbarBackAction } from "../../Components/Toolbars/ToolbarBackAction";
+import { styles } from "./index.styles";
 
 class Login extends Component {
   static navigationOptions = ({ navigation }) => ({
@@ -34,7 +35,7 @@ class Login extends Component {
   };
   render() {
     return (
-      <View>
+      <View style={[styles.container]}>
         <LoginForm />
         <Button
           title="LOGIN"
