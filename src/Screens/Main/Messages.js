@@ -2,10 +2,16 @@ import React, { Component } from "react";
 import { View } from "react-native";
 import { connect } from "react-redux";
 import { Toolbar } from "../../Components/Toolbars/Toolbar";
+import { ToolbarContent } from "../../Components/Toolbars/ToolbarContent";
 import { Chat, ThemeProvider } from "../../Components/Chat";
+import { styles } from "./Message.styles";
 class Messages extends Component {
   static navigationOptions = () => ({
-    header: () => <Toolbar />
+    header: () => (
+      <Toolbar>
+        <ToolbarContent title="Message" titleStyle={[styles.toolbarTitle]} />
+      </Toolbar>
+    )
   });
   render() {
     return (
