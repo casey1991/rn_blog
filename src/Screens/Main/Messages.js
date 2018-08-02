@@ -1,9 +1,9 @@
 import React, { Component } from "react";
-import { View } from "react-native";
+import { View, FlatList } from "react-native";
 import { connect } from "react-redux";
 import { Toolbar } from "../../Components/Toolbars/Toolbar";
 import { ToolbarContent } from "../../Components/Toolbars/ToolbarContent";
-import { Chat, ThemeProvider } from "../../Components/Chat";
+import { ListItem } from "../../Components/Common/ListItem/ListItem";
 import { styles } from "./Message.styles";
 class Messages extends Component {
   static navigationOptions = () => ({
@@ -13,12 +13,20 @@ class Messages extends Component {
       </Toolbar>
     )
   });
+  _renderItem = ({ item }) => {
+    return <ListItem title={"title"} onPress={() => {}} />;
+  };
+  _keyExtractor = (item, index) => {
+    return index + "";
+  };
   render() {
     return (
       <View style={[{ flex: 1 }]}>
-        <ThemeProvider>
-          <Chat />
-        </ThemeProvider>
+        <FlatList
+          data={["1", "2", "3"]}
+          renderItem={this._renderItem}
+          keyExtractor={this._keyExtractor}
+        />
       </View>
     );
   }
