@@ -14,7 +14,17 @@ class Messages extends Component {
     )
   });
   _renderItem = ({ item }) => {
-    return <ListItem title={"title"} onPress={() => {}} />;
+    const {
+      navigation: { navigate }
+    } = this.props;
+    return (
+      <ListItem
+        title={"title"}
+        onPress={() => {
+          navigate("ChatStack");
+        }}
+      />
+    );
   };
   _keyExtractor = (item, index) => {
     return index + "";

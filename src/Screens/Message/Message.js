@@ -1,14 +1,39 @@
 import React, { Component } from "react";
-import { View } from "react-native";
+// import { View } from "react-native";
 import { connect } from "react-redux";
-import { Chat } from "../../Components/Chat";
-import { messages } from "./constants";
+import { Toolbar } from "../../Components/Toolbars/Toolbar";
+import { ToolbarContent } from "../../Components/Toolbars/ToolbarContent";
+import { ToolbarBackAction } from "../../Components/Toolbars/ToolbarBackAction";
+import { Chat, ThemeProvider } from "../../Components/Chat";
+import { SafeAreaView } from "react-navigation";
+// import { styles } from "./Message.styles";
+
 class Message extends Component {
+  _renderHeader = () => {
+    const {
+      navigation: { goBack }
+    } = this.props;
+    return (
+      <Toolbar>
+        <ToolbarBackAction
+          onPress={() => {
+            goBack(null);
+          }}
+        />
+        <ToolbarContent title="Message" />
+      </Toolbar>
+    );
+  };
   render() {
     return (
-      <View>
-        <Chat messages={messages} />
-      </View>
+      <SafeAreaView
+        style={[{ flex: 1, backgroundColor: "#FFF" }]}
+        forceInset={{ bottom: "always", top: "never" }}
+      >
+        <ThemeProvider>
+          <Chat renderHeader={this._renderHeader} />
+        </ThemeProvider>
+      </SafeAreaView>
     );
   }
 }
