@@ -11,7 +11,7 @@ export const styles = StyleSheet.create({
   },
   layoutBottomActions: {
     borderTopWidth: StyleSheet.hairlineWidth,
-    borderTopColor: Colors.WHITE,
+    borderTopColor: Colors.DIVIDER,
     backgroundColor: Colors.WHITE,
     flexDirection: "row",
     alignItems: "flex-end",

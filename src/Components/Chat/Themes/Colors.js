@@ -8,6 +8,7 @@ export default {
   TEXT_DISABLE_COLOR: "rgba(0,0,0,0.2)",
   TRANSPARENT: "transparent",
   BACKGROUND_COLOR: "#FEFEFE",
+  DIVIDER: "#CCC",
   WHITE: "#FFF",
   DARK: "#000"
 };
