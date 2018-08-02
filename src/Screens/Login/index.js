@@ -7,15 +7,16 @@ import { LoginForm } from "../../Components/Forms/LoginForm";
 import { Colors } from "../../Themes";
 import { Actions } from "../../Redux/Auth/actions";
 import { Toolbar } from "../../Components/Toolbars/Toolbar";
-import { ToolbarBackAction } from "../../Components/Toolbars/ToolbarBackAction";
+import { ToolbarAction } from "../../Components/Toolbars/ToolbarAction";
 import { styles } from "./index.styles";
 
 class Login extends Component {
   static navigationOptions = ({ navigation }) => ({
     header: () => (
       <Toolbar>
-        <ToolbarBackAction
+        <ToolbarAction
           dark
+          icon={"close"}
           onPress={() => {
             navigation.goBack(null);
           }}
