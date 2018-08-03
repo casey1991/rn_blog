@@ -6,15 +6,16 @@ import InputToolBar from "./InputToolBar";
 import Send from "./Send";
 import { styles } from "../Styles/Chat.styles";
 import { MessageBuilder } from "../utils";
+import { User } from "../contents";
 export default class Chat extends Component {
   static propTypes = {
-    messages: PropTypes.arrayOf(PropTypes.object),
-    user: PropTypes.object,
+    messages: PropTypes.arrayOf(PropTypes.shape({ _id: PropTypes.string })),
+    user: PropTypes.shape({ _id: PropTypes.string }),
     onSend: PropTypes.func
   };
   static defaultProps = {
     messages: [],
-    user: {},
+    user: User,
     onSend: () => {}
   };
   constructor(props) {

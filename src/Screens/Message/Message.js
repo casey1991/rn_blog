@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { Toolbar } from "../../Components/Toolbars/Toolbar";
 import { ToolbarContent } from "../../Components/Toolbars/ToolbarContent";
 import { ToolbarBackAction } from "../../Components/Toolbars/ToolbarBackAction";
-import { Chat, ThemeProvider } from "../../Components/Chat";
+import { Chat, ThemeProvider, Contents } from "../../Components/Chat";
 import { SafeAreaView } from "react-navigation";
 // import { styles } from "./Message.styles";
 
@@ -31,7 +31,10 @@ class Message extends Component {
         forceInset={{ bottom: "always", top: "never" }}
       >
         <ThemeProvider>
-          <Chat renderHeader={this._renderHeader} />
+          <Chat
+            renderHeader={this._renderHeader}
+            messages={Contents.Messages}
+          />
         </ThemeProvider>
       </SafeAreaView>
     );

@@ -158,7 +158,7 @@ export const Messages = [
 ];
 export const User = {
   _id: "5a2773c76479fd25da8a953c",
-  name: "locaa"
+  name: "casey"
 };
 export default {
   Messages,
