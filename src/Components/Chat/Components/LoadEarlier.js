@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { View } from "react-native";
 import Styles from "../Styles/LoadEarlierStyles";
-import ThemeWrapper from "../Themes/ThemeWrapper";
+import ThemeWrapper from "./ThemeWrapper";
 
 class LoadEarlier extends Component {
   static defaultProps = {

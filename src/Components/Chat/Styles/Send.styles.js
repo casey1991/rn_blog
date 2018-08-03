@@ -14,27 +14,27 @@ const enableStyle = StyleSheet.create({
     borderWidth: Dimensions.COMMON_BORDER_WIDTH,
     flexDirection: "column",
     borderRadius: Dimensions.COMMON_BORDER_RADIUS,
-    borderColor: Colors.PRIMARY_COLOR,
-    backgroundColor: Colors.PRIMARY_COLOR,
+    borderColor: Colors.primaryColor,
+    backgroundColor: Colors.primaryColor,
     justifyContent: "center"
   },
   text: {
-    color: Colors.WHITE,
+    color: Colors.white,
     fontSize: Dimensions.TEXT_SIZE_PRIMARY
   }
 });
 const disableStyle = StyleSheet.create({
   ...basicStyle,
   sendButton: {
-    backgroundColor: Colors.WHITE,
+    backgroundColor: Colors.white,
     borderWidth: Dimensions.COMMON_BORDER_WIDTH,
     borderRadius: Dimensions.COMMON_BORDER_RADIUS,
     flexDirection: "column",
-    borderColor: Colors.TEXT_DISABLE_COLOR,
+    borderColor: Colors.textColorDisable,
     justifyContent: "center"
   },
   text: {
-    color: Colors.TEXT_DISABLE_COLOR,
+    color: Colors.textColorDisable,
     fontSize: Dimensions.TEXT_SIZE_PRIMARY
   }
 });

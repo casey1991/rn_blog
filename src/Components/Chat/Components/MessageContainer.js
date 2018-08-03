@@ -1,50 +1,53 @@
 import React, { Component } from "react";
-import { FlatList, View, ImageBackground } from "react-native";
+import { FlatList, View } from "react-native";
 import md5 from "md5";
 import PropTypes from "prop-types";
 import Message from "./Message";
 import LoadEarlier from "./LoadEarlier";
 import Strings from "../Styles/Strings";
 import Styles from "../Styles/MessageContainerStyles";
+import * as _ from "lodash";
 class MessageContainer extends Component {
-  static defaultProps = {
-    messages: [],
-    invertibleScrollViewProps: {},
-    user: {},
-    isLoadingEarlier: false,
-    loadEarlier: false,
-    onLoadEarlier: () => {}
-  };
   static propTypes = {
     messages: PropTypes.arrayOf(PropTypes.object),
-    invertibleScrollViewProps: PropTypes.object,
     user: PropTypes.object,
-    isLoadingEarlier: PropTypes.bool,
-    loadEarlier: PropTypes.bool,
     onLoadEarlier: PropTypes.func
+  };
+  static defaultProps = {
+    messages: [],
+    user: {},
+    onLoadEarlier: () => {}
   };
   constructor(props) {
     super(props);
-
     const messagesData = this.prepareMessages(props.messages);
     this.state = {
-      dataSource: messagesData,
-      loadEarlier: this.props.loadEarlier,
-      isLoadingEarlier: this.props.isLoadingEarlier
+      flatLayoutHeight: 0,
+      dataSource: messagesData
     };
     this._flatList = React.createRef();
   }
-  UNSAFE_componentWillReceiveProps(nextProps) {
-    if (this.props.messages === nextProps.messages) {
+  componentDidUpdate(prevProps) {
+    const { messages: prevMessages } = prevProps;
+    const { messages: currentMessages } = this.props;
+    if (prevMessages.length === 0 && currentMessages.length > 0) {
+      this.scrollToEnd(); // first load we should scroll to end
+    }
+    if (prevMessages === currentMessages) {
       return;
     }
-    const messagesData = this.prepareMessages(nextProps.messages);
+    const messagesData = this.prepareMessages(currentMessages);
     this.setState({
       dataSource: messagesData
     });
+
+    if (_.head(prevMessages) !== _.head(currentMessages)) {
+      // new message insert we should scroll to end
+      this.scrollToEnd();
+    }
   }
-  scrollTo(options) {
-    this._flatList.current.scrollToOffset(options);
+  scrollToEnd() {
+    this._flatList.current.scrollToOffset({ height: 0 });
   }
   prepareMessages(messages) {
     let result = [];
@@ -82,16 +85,24 @@ class MessageContainer extends Component {
     return (
       <View style={[Styles.container]}>
         <FlatList
-          {...this.props.invertibleScrollViewProps}
+          onLayout={({ nativeEvent }) => {
+            const { height } = nativeEvent.layout;
+            if (this.state.flatLayoutHeight) {
+              if (height > 0)
+                this.setState({
+                  flatListPrevHeight: height
+                });
+            } else {
+              if (this.state.flatLayoutHeight > height) this.scrollToEnd();
+            }
+          }}
+          inverted
+          style={{ flex: 1 }}
           ref={this._flatList}
           data={this.state.dataSource}
-          inverted
           renderItem={this.renderItem}
-          enableEmptySections={true}
-          onEndReachedThreshold={0}
-          onEndReached={() => {
-            if (!this.props.isLoadingEarlier) this.props.onLoadEarlier();
-          }}
+          onEndReachedThreshold={1}
+          onEndReached={this.props.onLoadEarlier}
         />
         <View
           style={{

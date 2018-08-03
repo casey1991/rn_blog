@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { View, TouchableOpacity, Image } from "react-native";
 import { styles } from "../Styles/Avatar.styles";
-import ThemeWrapper from "../Themes/ThemeWrapper";
+import ThemeWrapper from "./ThemeWrapper";
 class Avatar extends Component {
   static propTypes = {
     onPress: PropTypes.func,

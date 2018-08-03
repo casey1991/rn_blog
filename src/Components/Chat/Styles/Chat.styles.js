@@ -3,7 +3,7 @@ import { Dimensions, Colors } from "../Themes";
 export const styles = StyleSheet.create({
   layoutContainer: {
     flex: 1,
-    backgroundColor: Colors.BACKGROUND_COLOR,
+    backgroundColor: Colors.defaultColor,
     flexDirection: "column"
   },
   layoutMessageContainer: {
@@ -11,8 +11,8 @@ export const styles = StyleSheet.create({
   },
   layoutBottomActions: {
     borderTopWidth: StyleSheet.hairlineWidth,
-    borderTopColor: Colors.DIVIDER,
-    backgroundColor: Colors.WHITE,
+    borderTopColor: Colors.white,
+    backgroundColor: Colors.white,
     flexDirection: "row",
     alignItems: "flex-end",
     padding: Dimensions.COMMON_PADDING

@@ -14,8 +14,8 @@ export const styles = {
     container: {
       flexDirection: "row",
       justifyContent: "flex-start",
-      marginRight: Dimensions.AVATAR_WIDTH
-      // backgroundColor: Colors
+      marginRight: Dimensions.AVATAR_WIDTH,
+      backgroundColor: Colors.transparent
     },
     layoutAvatar: {
       marginRight: Dimensions.COMMON_MARGIN
@@ -39,8 +39,8 @@ export const styles = {
     container: {
       flexDirection: "row",
       justifyContent: "flex-end",
-      marginLeft: Dimensions.AVATAR_WIDTH
-      // backgroundColor: Colors.transparent
+      marginLeft: Dimensions.AVATAR_WIDTH,
+      backgroundColor: Colors.transparent
     },
     layoutAvatar: {
       marginLeft: Dimensions.COMMON_MARGIN

@@ -1,4 +1,4 @@
-import { MESSAGE_TYPE_TEXT, MESSAGE_STATUS_SENDING } from "../Styles/Constants";
+import { MESSAGE_TYPE_TEXT, MESSAGE_STATUS_SENDING } from "./constants";
 export function isSameUser(currentMessage = {}, diffMessage = {}) {
   return !!(
     diffMessage.user &&

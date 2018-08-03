@@ -1,7 +1,7 @@
 import { Component, Children } from "react";
 import PropTypes from "prop-types";
-import { Colors, Dimensions } from "./index";
-class ThemeProvider extends Component {
+import { Colors, Dimensions } from "../Themes";
+export default class ThemeProvider extends Component {
   static propTypes = {
     theme: PropTypes.object
   };
@@ -19,4 +19,3 @@ class ThemeProvider extends Component {
     return Children.only(this.props.children);
   }
 }
-export default ThemeProvider;

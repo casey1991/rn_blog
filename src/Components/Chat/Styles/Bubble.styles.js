@@ -5,7 +5,7 @@ export const styles = StyleSheet.create({
   layoutContainer: {
     borderRadius: Dimensions.COMMON_BORDER_RADIUS,
     borderWidth: Dimensions.COMMON_BORDER_WIDTH,
-    borderColor: Colors.WHITE,
+    borderColor: Colors.white,
     padding: Dimensions.COMMON_PADDING,
     backgroundColor: Colors.white
   }

@@ -8,7 +8,7 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: Dimensions.TEXT_SIZE_HINT,
-    color: Colors.HINT_COLOR
+    color: Colors.hintColor
   }
 });
 export default styles;

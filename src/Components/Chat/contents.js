@@ -1,4 +1,4 @@
-import MessageTypes from "./Constants";
+import MessageTypes from "./constants";
 export const Messages = [
   {
     __v: 0,

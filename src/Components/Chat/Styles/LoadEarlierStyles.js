@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
     width: 24,
     height: 24,
     borderRadius: 24,
-    borderColor: Colors.PRIMARY_COLOR,
+    borderColor: Colors.primaryColor,
     borderWidth: 3,
     backgroundColor: "transparent"
   }
