@@ -18,12 +18,21 @@ export default class Day extends Component {
   constructor(props) {
     super(props);
   }
+  _formatTime = () => {
+    const {
+      currentMessage: { createdAt: currentCreateAt }
+    } = this.props;
+    const currentTime = moment(currentCreateAt);
+    const timenow = moment(new Date());
+    const inFiveMinute = timenow.diff(currentTime, "days") < 1;
+    return inFiveMinute
+      ? currentTime.format("HH:mm")
+      : currentTime.format("YYYY/MM/DD HH:mm");
+  };
   render() {
     return (
-      <View style={[Styles.container, Styles.containerLayout]}>
-        <Text style={[Styles.text]}>
-          {moment(this.props.currentMessage.createdAt).format("LT")}
-        </Text>
+      <View style={[Styles.container, Styles.layoutContianer]}>
+        <Text style={[Styles.text]}>{this._formatTime()}</Text>
       </View>
     );
   }

@@ -21,5 +21,7 @@ export default {
   textPrimaryColor: "rgba(0,0,0,0.78)", //主文本色
   textSecondaryColor: "rgba(0,0,0,0.56)", //輔文本色
   textHintColor: "rgba(0,0,0,0.38)", //文本提示色
+  background_color: "#CFCFCF",
+  text_color: "#FFF",
   transparent: "transparent"
 };

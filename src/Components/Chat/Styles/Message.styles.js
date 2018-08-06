@@ -1,62 +1,65 @@
 import { StyleSheet } from "react-native";
-import { Dimensions, Colors } from "../Themes";
+import { Dimensions } from "../Themes";
 import Strings from "./Strings";
-const basicStyles = {
-  messageStyle: {
-    paddingLeft: Dimensions.COMMON_PADDING,
-    paddingRight: Dimensions.COMMON_PADDING,
-    paddingBottom: Dimensions.COMMON_PADDING
-  }
-};
 export const styles = {
   [Strings.MESSAGE_POSITION_LEFT]: StyleSheet.create({
-    ...basicStyles,
-    container: {
-      flexDirection: "row",
-      justifyContent: "flex-start",
-      marginRight: Dimensions.AVATAR_WIDTH,
-      backgroundColor: Colors.transparent
+    layoutContainer: {
+      flex: 1,
+      margin: Dimensions.COMMON_MARGIN,
+      flexDirection: "column"
     },
-    layoutAvatar: {
-      marginRight: Dimensions.COMMON_MARGIN
+    container: {},
+    layoutTime: {
+      padding: Dimensions.COMMON_INNER_PADDING,
+      justifyContent: "center",
+      alignItems: "center"
     },
-    layoutContent: {
-      flexDirection: "column",
-      justifyContent: "flex-end"
-    },
-    topInfoLayout: {
-      flexDirection: "row",
-      alignItems: "center",
-      marginBottom: Dimensions.COMMON_INNER_MARGIN
-    },
-    bubbleLayout: {
+    layoutBody: {
       flexDirection: "row",
       justifyContent: "flex-start"
-    }
-  }),
-  [Strings.MESSAGE_POSITION_RIGHT]: StyleSheet.create({
-    ...basicStyles,
-    container: {
-      flexDirection: "row",
-      justifyContent: "flex-end",
-      marginLeft: Dimensions.AVATAR_WIDTH,
-      backgroundColor: Colors.transparent
     },
-    layoutAvatar: {
-      marginLeft: Dimensions.COMMON_MARGIN
-    },
-    layoutContent: {
-      flexDirection: "column",
-      justifyContent: "flex-end"
-    },
-    topInfoLayout: {
-      flexDirection: "row-reverse",
-      alignItems: "center",
+    layoutName: {
       marginBottom: Dimensions.COMMON_INNER_MARGIN
     },
-    bubbleLayout: {
+    layoutAvatar: {
+      marginRight: Dimensions.COMMON_INNER_MARGIN
+    },
+    layoutContent: {
+      flex: 1,
+      flexDirection: "column",
+      alignItems: "flex-start"
+    },
+    avatar: {},
+    content: {}
+  }),
+  [Strings.MESSAGE_POSITION_RIGHT]: StyleSheet.create({
+    layoutContainer: {
+      flex: 1,
+      margin: Dimensions.COMMON_MARGIN,
+      flexDirection: "column"
+    },
+    container: {},
+    layoutTime: {
+      padding: Dimensions.COMMON_INNER_PADDING,
+      justifyContent: "center",
+      alignItems: "center"
+    },
+    layoutBody: {
       flexDirection: "row",
       justifyContent: "flex-end"
-    }
+    },
+    layoutName: {
+      marginBottom: Dimensions.COMMON_INNER_MARGIN
+    },
+    layoutAvatar: {
+      marginLeft: Dimensions.COMMON_INNER_MARGIN
+    },
+    layoutContent: {
+      flex: 1,
+      flexDirection: "column",
+      alignItems: "flex-end"
+    },
+    avatar: {},
+    content: {}
   })
 };

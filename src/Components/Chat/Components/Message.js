@@ -9,6 +9,7 @@ import Time from "./Time";
 import Name from "./Name";
 import Strings from "../Styles/Strings";
 import { styles } from "../Styles/Message.styles";
+import utils from "../utils";
 export default class Message extends Component {
   static defaultProps = {
     position: Strings.MESSAGE_POSITION_LEFT,
@@ -47,45 +48,69 @@ export default class Message extends Component {
   renderContent = () => {
     const currentMessage = this.props.currentMessage;
     const Content = getMessageContentHelper(currentMessage.type);
+    const left = this.props.position === Strings.MESSAGE_POSITION_LEFT;
     return (
-      <View>
-        <View style={styles[this.props.position].topInfoLayout}>
-          <Name currentMessage={this.props.currentMessage} />
-          {/* <Time currentMessage={this.props.currentMessage} /> */}
-        </View>
-        <View style={styles[this.props.position].bubbleLayout}>
-          <Bubble>
-            <Content currentMessage={this.props.currentMessage} />
-          </Bubble>
-        </View>
+      <View style={[styles[this.props.position].layoutContent]}>
+        {left ? (
+          <View style={styles[this.props.position].layoutName}>
+            <Name currentMessage={this.props.currentMessage} />
+          </View>
+        ) : null}
+        <Bubble>
+          <Content currentMessage={this.props.currentMessage} />
+        </Bubble>
       </View>
     );
+  };
+  renderTime = () => {
+    const {
+      currentMessage,
+      previousMessage,
+      nextMessage,
+      position
+    } = this.props;
+    const Styles = styles[position];
+    const timeDiff = utils.timeDiffer(
+      currentMessage.createdAt,
+      previousMessage.createdAt
+    );
+    if (timeDiff >= 300)
+      return (
+        <View style={[Styles.layoutTime]}>
+          <Time
+            currentMessage={currentMessage}
+            previousMessage={previousMessage}
+            nextMessage={nextMessage}
+          />
+        </View>
+      );
+    else return null;
   };
   renderSystemMessage = () => {
     // const systemMessageProps = {};
     return <View />;
   };
   render() {
+    const { position } = this.props;
+    // const position = Strings.MESSAGE_POSITION_LEFT;
+    const Styles = styles[position];
     //不描绘系统信息
     return (
-      <View
-        style={[
-          styles[this.props.position].container,
-          styles[this.props.position].messageStyle
-        ]}
-      >
-        <View style={[styles[this.props.position].layoutAvatar]}>
-          {this.props.position === Strings.MESSAGE_POSITION_LEFT
-            ? this.renderAvatar()
-            : null}
-        </View>
-        <View style={[styles[this.props.position].layoutContent]}>
+      <View style={[Styles.layoutContainer, Styles.container]}>
+        {this.renderTime()}
+        <View style={[Styles.layoutBody]}>
+          <View style={[Styles.layoutAvatar]}>
+            {position === Strings.MESSAGE_POSITION_LEFT
+              ? this.renderAvatar()
+              : null}
+          </View>
+          {/* <Primary text="I'll see you in a bit ll see you in a bit ll see you in a bit ll see you in a bit ll see you in a bit ll see you in a bit ll see you in a bit ll see you in a bit" /> */}
           {this.renderContent()}
-        </View>
-        <View style={[styles[this.props.position].layoutAvatar]}>
-          {this.props.position === Strings.MESSAGE_POSITION_RIGHT
-            ? this.renderAvatar()
-            : null}
+          <View style={[Styles.layoutAvatar]}>
+            {position === Strings.MESSAGE_POSITION_RIGHT
+              ? this.renderAvatar()
+              : null}
+          </View>
         </View>
       </View>
     );

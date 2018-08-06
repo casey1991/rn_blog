@@ -1,4 +1,5 @@
 import { MESSAGE_TYPE_TEXT, MESSAGE_STATUS_SENDING } from "./constants";
+import moment from "moment";
 export function isSameUser(currentMessage = {}, diffMessage = {}) {
   return !!(
     diffMessage.user &&
@@ -14,6 +15,12 @@ export const idGenerator = function() {
       .substr(2, 9)
   );
 };
+export function timeDiffer(timeOne, timeTwo) {
+  const time = moment(timeOne);
+  const diffTime = moment(timeTwo);
+  const diff = time.diff(diffTime, "seconds");
+  return Math.abs(diff);
+}
 export class MessageBuilder {
   constructor() {
     this.type = MESSAGE_TYPE_TEXT;
@@ -66,5 +73,6 @@ export class MessageBuilder {
 }
 export default {
   isSameUser,
+  timeDiffer,
   MessageBuilder
 };

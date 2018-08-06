@@ -7,7 +7,7 @@ import LoadEarlier from "./LoadEarlier";
 import Strings from "../Styles/Strings";
 import Styles from "../Styles/MessageContainerStyles";
 import * as _ from "lodash";
-class MessageContainer extends Component {
+export default class MessageContainer extends Component {
   static propTypes = {
     messages: PropTypes.arrayOf(PropTypes.object),
     user: PropTypes.object,
@@ -40,12 +40,23 @@ class MessageContainer extends Component {
     this.setState({
       dataSource: messagesData
     });
-
-    if (_.head(prevMessages) !== _.head(currentMessages)) {
-      // new message insert we should scroll to end
-      this.scrollToEnd();
-    }
+    const newInsert = this._newInsert(prevMessages, currentMessages);
+    if (newInsert) this.scrollToEnd();
   }
+  _newInsert = (prev, current) => {
+    const prevHead = _.head(prev);
+    const currentHead = _.head(current);
+    if (!currentHead) {
+      return false;
+    }
+    if (!prevHead && currentHead) {
+      return true;
+    }
+    if (prevHead._id !== currentHead._id) {
+      return true;
+    }
+    return false;
+  };
   scrollToEnd() {
     this._flatList.current.scrollToOffset({ height: 0 });
   }
@@ -118,6 +129,6 @@ class MessageContainer extends Component {
     );
   }
 }
-export default React.forwardRef((props, ref) => (
-  <MessageContainer {...props} ref={ref} />
-));
+// export default React.forwardRef((props, ref) => (
+//   <MessageContainer {...props} ref={ref} />
+// ));

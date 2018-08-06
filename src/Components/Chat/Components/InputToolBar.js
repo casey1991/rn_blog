@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { View, Keyboard, TouchableOpacity } from "react-native";
-import Send from "./Send";
+import { View } from "react-native";
 import Composer from "./Composer";
 import { styles } from "../Styles/InputToolbar.styles";
 

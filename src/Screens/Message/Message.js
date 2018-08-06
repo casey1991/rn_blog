@@ -34,6 +34,7 @@ class Message extends Component {
           <Chat
             renderHeader={this._renderHeader}
             messages={Contents.Messages}
+            user={Contents.User}
           />
         </ThemeProvider>
       </SafeAreaView>
