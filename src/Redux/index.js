@@ -5,8 +5,11 @@ import { rootSaga } from "./sagas";
 import { composeWithDevTools } from "redux-devtools-extension";
 import { authMiddleware } from "./Middlewares/auth.middleware";
 const sagaMiddleware = createSagaMiddleware();
+const composeEnhancers = composeWithDevTools({
+  open: "remote"
+});
 export const store = createStore(
   reducers,
-  composeWithDevTools(applyMiddleware(authMiddleware, sagaMiddleware))
+  composeEnhancers(applyMiddleware(authMiddleware, sagaMiddleware))
 );
 sagaMiddleware.run(rootSaga);
