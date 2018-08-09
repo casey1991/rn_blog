@@ -6,8 +6,8 @@ import { FloatActionButton } from "../../Components/Common/Button/FloatActionBut
 import { Toolbar } from "../../Components/Toolbars/Toolbar";
 import { Searchbar } from "../../Components/Searchbar/Searchbar";
 import { connect } from "react-redux";
-// import { SafeAreaView } from "react-navigation";
 import { Actions } from "../../Redux/Article/actions";
+import { Text } from "../../Components/Common/Text";
 
 class Home extends Component {
   static navigationOptions = () => ({
@@ -30,6 +30,13 @@ class Home extends Component {
             createArticle();
           }}
         />
+        <Text>
+          custom custom
+          {/* custom custom custom custom custom custom custom custom */}
+          {/* custom custom custom custom custom custom custom custom custom custom */}
+          {/* custom custom custom custom custom custom custom custom custom custom */}
+          {/* custom custom */}
+        </Text>
       </View>
     );
   }
