@@ -24,6 +24,9 @@ class Login extends Component {
       </Toolbar>
     )
   });
+  componentDidMount() {
+    console.log("LoginScreen did mount!");
+  }
   componentDidUpdate(prevProps) {
     const { user, navigation } = this.props;
     if (user && !prevProps.user) {

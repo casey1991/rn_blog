@@ -13,6 +13,9 @@ class Messages extends Component {
       </Toolbar>
     )
   });
+  componentDidMount() {
+    console.log("MessagesScreen did mount!");
+  }
   _renderItem = ({ item }) => {
     const {
       navigation: { navigate }

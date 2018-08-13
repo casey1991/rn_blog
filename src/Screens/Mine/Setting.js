@@ -21,6 +21,9 @@ class Setting extends Component {
       </Toolbar>
     )
   });
+  componentDidMount() {
+    console.log("SettingScreen did mount!");
+  }
   componentDidUpdate(prevProps) {
     const { user, navigation } = this.props;
     if (prevProps.user && !user) {

@@ -13,6 +13,9 @@ class Home extends Component {
   static navigationOptions = () => ({
     header: () => <Searchbar />
   });
+  componentDidMount() {
+    console.log("HomeScreen did mount!");
+  }
   render() {
     const { createArticle, navigation } = this.props;
     return (

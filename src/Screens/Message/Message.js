@@ -24,6 +24,9 @@ class Message extends Component {
       </Toolbar>
     );
   };
+  componentDidMount() {
+    console.log("MessageScreen did mount!");
+  }
   render() {
     return (
       <SafeAreaView
