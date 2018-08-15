@@ -19,14 +19,20 @@ const styles = StyleSheet.create({
   }
 });
 function MaterialTopTabBarWithStatusBar(props) {
+  console.log(props);
   return (
     <View
       style={{
         paddingTop: Constants.statusBarHeight,
-        backgroundColor: "#2196f3"
+        backgroundColor: Colors.PRIMARY
       }}
     >
-      <MaterialTopTabBar {...props} jumpToIndex={() => {}} />
+      <MaterialTopTabBar
+        {...props}
+        jumpToIndex={() => {}}
+        style={{ backgroundColor: Colors.PRIMARY }}
+        indicatorStyle={{ backgroundColor: Colors.WHITE }}
+      />
     </View>
   );
 }
