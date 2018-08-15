@@ -2,6 +2,7 @@ import React from "react";
 import { createMaterialBottomTabNavigator } from "react-navigation-material-bottom-tabs";
 import { createStackNavigator } from "react-navigation";
 import { HomeScreen } from "../Screens/Main/Home";
+import { SearchScreen } from "../Screens/Main/Search";
 import { MessagesScreen } from "../Screens/Main/Messages";
 import { ProfileScreen } from "../Screens/Main/Mine";
 import { Colors } from "../Themes";
@@ -14,6 +15,15 @@ export const MainStack = createMaterialBottomTabNavigator(
         title: "Home",
         tabBarIcon: ({ focused, tintColor }) => (
           <Icon icon="home" color={tintColor} />
+        )
+      }
+    },
+    Search: {
+      screen: createStackNavigator({ SearchScreen }),
+      navigationOptions: {
+        title: "Search",
+        tabBarIcon: ({ focused, tintColor }) => (
+          <Icon icon="search" color={tintColor} />
         )
       }
     },
