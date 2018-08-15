@@ -1,16 +1,54 @@
 import React from "react";
+import { StyleSheet, View } from "react-native";
 import { createMaterialBottomTabNavigator } from "react-navigation-material-bottom-tabs";
-import { createStackNavigator } from "react-navigation";
+import {
+  createStackNavigator,
+  createMaterialTopTabNavigator
+} from "react-navigation";
+import { Constants } from "expo";
+import { MaterialTopTabBar } from "react-navigation-tabs";
 import { HomeScreen } from "../Screens/Main/Home";
 import { SearchScreen } from "../Screens/Main/Search";
 import { MessagesScreen } from "../Screens/Main/Messages";
 import { ProfileScreen } from "../Screens/Main/Mine";
 import { Colors } from "../Themes";
 import { Icon } from "../Components/Common/Icon/Icon";
+const styles = StyleSheet.create({
+  tab: {
+    height: 50
+  }
+});
+function MaterialTopTabBarWithStatusBar(props) {
+  return (
+    <View
+      style={{
+        paddingTop: Constants.statusBarHeight,
+        backgroundColor: "#2196f3"
+      }}
+    >
+      <MaterialTopTabBar {...props} jumpToIndex={() => {}} />
+    </View>
+  );
+}
 export const MainStack = createMaterialBottomTabNavigator(
   {
     Home: {
-      screen: createStackNavigator({ HomeScreen }),
+      screen: createStackNavigator(
+        {
+          screen: createMaterialTopTabNavigator(
+            { HomeScreen, SearchScreen },
+            {
+              tabBarComponent: MaterialTopTabBarWithStatusBar,
+              tabBarOptions: {
+                tabStyle: styles.tab
+              }
+            }
+          )
+        },
+        {
+          headerMode: "none"
+        }
+      ),
       navigationOptions: {
         title: "Home",
         tabBarIcon: ({ focused, tintColor }) => (
