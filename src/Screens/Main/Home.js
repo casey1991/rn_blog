@@ -8,6 +8,7 @@ import { Searchbar } from "../../Components/Searchbar/Searchbar";
 import { connect } from "react-redux";
 import { Actions } from "../../Redux/Article/actions";
 import { Text } from "../../Components/Common/Text";
+import { styles } from "./Home.styles";
 
 class Home extends Component {
   static navigationOptions = () => ({
@@ -19,7 +20,7 @@ class Home extends Component {
   render() {
     const { createArticle, navigation } = this.props;
     return (
-      <View>
+      <View style={[styles.layoutContainer]}>
         <Button
           raised={false}
           onPress={() => {
@@ -28,11 +29,13 @@ class Home extends Component {
         >
           Article One
         </Button>
-        <FloatActionButton
-          onPress={() => {
-            createArticle();
-          }}
-        />
+        <View style={[styles.layoutFAB]}>
+          <FloatActionButton
+            onPress={() => {
+              createArticle();
+            }}
+          />
+        </View>
         <Text>
           custom custom
           {/* custom custom custom custom custom custom custom custom */}
