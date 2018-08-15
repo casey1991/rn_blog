@@ -4,7 +4,7 @@ import { bindActionCreators } from "redux";
 import { Button } from "../../Components/Common/Button/Button";
 import { FloatActionButton } from "../../Components/Common/Button/FloatActionButton";
 import { Toolbar } from "../../Components/Toolbars/Toolbar";
-import { Searchbar } from "../../Components/Searchbar/Searchbar";
+import { ToolbarContent } from "../../Components/Toolbars/ToolbarContent";
 import { connect } from "react-redux";
 import { Actions } from "../../Redux/Article/actions";
 import { Text } from "../../Components/Common/Text";
@@ -12,7 +12,11 @@ import { styles } from "./Home.styles";
 
 class Home extends Component {
   static navigationOptions = () => ({
-    header: () => <Searchbar />
+    header: () => (
+      <Toolbar>
+        <ToolbarContent title="Home" titleStyle={[styles.toolbarTitle]} />
+      </Toolbar>
+    )
   });
   componentDidMount() {
     console.log("HomeScreen did mount!");
