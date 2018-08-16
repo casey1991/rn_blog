@@ -126,7 +126,7 @@ export default class MessageContainer extends Component {
                   ? Strings.MESSAGE_POSITION_RIGHT
                   : Strings.MESSAGE_POSITION_LEFT
             };
-            renderItem(messageProps);
+            return renderItem(messageProps);
           }}
           onEndReachedThreshold={1}
           onEndReached={onLoadEarlier}
