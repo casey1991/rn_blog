@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { StatusBar } from "react-native";
 import { Provider } from "react-redux";
 import { Root } from "../Navigations/Root";
 import { store } from "../Redux";
@@ -20,6 +21,10 @@ export class App extends Component {
     return (
       <Provider store={store}>
         <PaperProvider theme={theme}>
+          <StatusBar
+            barStyle="light-content"
+            backgroundColor={Colors.PRIMARY}
+          />
           <Root
             ref={navigatorRef => {
               NavigationnServices.setTopLevelNavigator(navigatorRef);
