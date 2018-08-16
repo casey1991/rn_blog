@@ -1,65 +1,40 @@
 import React, { Component } from "react";
-import { View } from "react-native";
-import { bindActionCreators } from "redux";
-import { Button } from "../../Components/Common/Button/Button";
-import { FloatActionButton } from "../../Components/Common/Button/FloatActionButton";
-import { Toolbar } from "../../Components/Toolbars/Toolbar";
-import { ToolbarContent } from "../../Components/Toolbars/ToolbarContent";
-import { connect } from "react-redux";
-import { Actions } from "../../Redux/Article/actions";
-import { Text } from "../../Components/Common/Text";
-import { styles } from "./Home.styles";
-
-class Home extends Component {
-  static navigationOptions = () => ({
-    header: () => (
-      <Toolbar>
-        <ToolbarContent title="Home" titleStyle={[styles.toolbarTitle]} />
-      </Toolbar>
-    )
-  });
-  componentDidMount() {
-    console.log("HomeScreen did mount!");
+import { View, StyleSheet } from "react-native";
+import { MaterialTopTabBar } from "react-navigation-tabs";
+import { Constants } from "expo";
+import { Colors } from "../../../Themes";
+import { createMaterialTopTabNavigator } from "react-navigation";
+import { HomeAllScreen } from "./All";
+import { HomeOtherScreen } from "./Other";
+const styles = StyleSheet.create({
+  tab: {
+    height: 64
   }
-  render() {
-    const { createArticle, navigation } = this.props;
-    return (
-      <View style={[styles.layoutContainer]}>
-        <Button
-          raised={false}
-          onPress={() => {
-            navigation.navigate("ArticleStack");
-          }}
-        >
-          Article One
-        </Button>
-        <View style={[styles.layoutFAB]}>
-          <FloatActionButton
-            onPress={() => {
-              createArticle();
-            }}
-          />
-        </View>
-        <Text>
-          custom custom
-          {/* custom custom custom custom custom custom custom custom */}
-          {/* custom custom custom custom custom custom custom custom custom custom */}
-          {/* custom custom custom custom custom custom custom custom custom custom */}
-          {/* custom custom */}
-        </Text>
-      </View>
-    );
-  }
-}
-const mapStateToProps = state => ({ ...state });
-const mapDispatchToProps = dispatch =>
-  bindActionCreators(
-    {
-      createArticle: Actions.create
-    },
-    dispatch
+});
+function MaterialTopTabBarWithStatusBar(props) {
+  console.log(props);
+  return (
+    <View
+      style={{
+        paddingTop: Constants.statusBarHeight,
+        backgroundColor: Colors.PRIMARY
+      }}
+    >
+      <MaterialTopTabBar
+        {...props}
+        jumpToIndex={() => {}}
+        style={{ backgroundColor: Colors.PRIMARY }}
+        indicatorStyle={{ backgroundColor: Colors.WHITE }}
+      />
+    </View>
   );
-export const HomeScreen = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Home);
+}
+export const HomeTabScreen = createMaterialTopTabNavigator(
+  { HomeAllScreen, HomeOtherScreen },
+  {
+    tabBarComponent: MaterialTopTabBarWithStatusBar,
+    tabBarOptions: {
+      tabStyle: styles.tab
+    }
+  }
+);
