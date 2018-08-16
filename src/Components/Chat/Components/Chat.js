@@ -9,11 +9,13 @@ import { MessageBuilder } from "../utils";
 export default class Chat extends Component {
   static propTypes = {
     messages: PropTypes.arrayOf(PropTypes.object),
+    renderItem: PropTypes.func,
     user: PropTypes.object,
     onSend: PropTypes.func
   };
   static defaultProps = {
     messages: [],
+    renderItem: () => {},
     user: {},
     onSend: () => {}
   };
@@ -42,13 +44,14 @@ export default class Chat extends Component {
   };
 
   renderMessages = () => {
-    const { messages, user, onLoadEarlier } = this.props;
+    const { messages, user, onLoadEarlier, renderItem } = this.props;
     return (
       <MessageContainer
         messages={messages}
         user={user}
         ref={this._messageContainer}
         onLoadEarlier={onLoadEarlier}
+        renderItem={renderItem}
       />
     );
   };

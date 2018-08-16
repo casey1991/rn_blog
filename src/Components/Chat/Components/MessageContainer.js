@@ -10,11 +10,13 @@ import * as _ from "lodash";
 export default class MessageContainer extends Component {
   static propTypes = {
     messages: PropTypes.arrayOf(PropTypes.object),
+    renderItem: PropTypes.func,
     user: PropTypes.object,
     onLoadEarlier: PropTypes.func
   };
   static defaultProps = {
     messages: [],
+    renderItem: () => {},
     user: {},
     onLoadEarlier: () => {}
   };
@@ -93,6 +95,9 @@ export default class MessageContainer extends Component {
     return <LoadEarlier {...loadEarlierProps} />;
   };
   render() {
+    const { renderItem, onLoadEarlier } = this.props;
+    const { dataSource } = this.state;
+    const { _flatList } = this;
     return (
       <View style={[Styles.container]}>
         <FlatList
@@ -109,11 +114,22 @@ export default class MessageContainer extends Component {
           }}
           inverted
           style={{ flex: 1 }}
-          ref={this._flatList}
-          data={this.state.dataSource}
-          renderItem={this.renderItem}
+          ref={_flatList}
+          data={dataSource}
+          renderItem={({ item }, index) => {
+            const messageProps = {
+              currentMessage: item,
+              previousMessage: item.previousMessage,
+              nextMessage: item.nextMessage,
+              position:
+                item.user._id === this.props.user._id
+                  ? Strings.MESSAGE_POSITION_RIGHT
+                  : Strings.MESSAGE_POSITION_LEFT
+            };
+            renderItem(messageProps);
+          }}
           onEndReachedThreshold={1}
-          onEndReached={this.props.onLoadEarlier}
+          onEndReached={onLoadEarlier}
         />
         <View
           style={{
