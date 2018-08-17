@@ -3,7 +3,7 @@ import { FlatList, View } from "react-native";
 import md5 from "md5";
 import PropTypes from "prop-types";
 import Message from "./Message";
-import LoadEarlier from "./LoadEarlier";
+import LoadingWrapper from "./LoadingWrapper";
 import Strings from "../Styles/Strings";
 import Styles from "../Styles/MessageContainerStyles";
 import * as _ from "lodash";
@@ -88,47 +88,45 @@ export default class MessageContainer extends Component {
     return <Message {...messageProps} />;
     // return <View />;
   };
-  _renderLoadEarlier = () => {
-    return <LoadEarlier />;
-  };
   render() {
     const { renderItem, onLoadEarlier, isLoadEarlier } = this.props;
     const { dataSource } = this.state;
-    const { _flatList, _renderLoadEarlier } = this;
+    const { _flatList } = this;
     return (
       <View style={[Styles.container]}>
-        <FlatList
-          onLayout={({ nativeEvent }) => {
-            const { height } = nativeEvent.layout;
-            if (this.state.flatLayoutHeight) {
-              if (height > 0)
-                this.setState({
-                  flatListPrevHeight: height
-                });
-            } else {
-              if (this.state.flatLayoutHeight > height) this.scrollToEnd();
-            }
-          }}
-          inverted
-          style={{ flex: 1 }}
-          ref={_flatList}
-          data={dataSource}
-          renderItem={({ item }, index) => {
-            const messageProps = {
-              message: item,
-              position:
-                item.user._id === this.props.user._id
-                  ? Strings.MESSAGE_POSITION_RIGHT
-                  : Strings.MESSAGE_POSITION_LEFT
-            };
-            return renderItem(messageProps);
-          }}
-          onEndReachedThreshold={0.1}
-          ListFooterComponent={isLoadEarlier ? _renderLoadEarlier : null}
-          onEndReached={() => {
-            if (!isLoadEarlier) onLoadEarlier();
-          }}
-        />
+        <LoadingWrapper isLoading={isLoadEarlier}>
+          <FlatList
+            onLayout={({ nativeEvent }) => {
+              const { height } = nativeEvent.layout;
+              if (this.state.flatLayoutHeight) {
+                if (height > 0)
+                  this.setState({
+                    flatListPrevHeight: height
+                  });
+              } else {
+                if (this.state.flatLayoutHeight > height) this.scrollToEnd();
+              }
+            }}
+            inverted
+            style={{ flex: 1 }}
+            ref={_flatList}
+            data={dataSource}
+            renderItem={({ item }, index) => {
+              const messageProps = {
+                message: item,
+                position:
+                  item.user._id === this.props.user._id
+                    ? Strings.MESSAGE_POSITION_RIGHT
+                    : Strings.MESSAGE_POSITION_LEFT
+              };
+              return renderItem(messageProps);
+            }}
+            onEndReachedThreshold={0.1}
+            onEndReached={() => {
+              onLoadEarlier();
+            }}
+          />
+        </LoadingWrapper>
       </View>
     );
   }

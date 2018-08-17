@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { Toolbar } from "../../Components/Toolbars/Toolbar";
 import { ToolbarContent } from "../../Components/Toolbars/ToolbarContent";
 import { ToolbarBackAction } from "../../Components/Toolbars/ToolbarBackAction";
-import { Chat, ThemeProvider, Contents } from "../../Components/Chat";
+import { Chat, ThemeProvider, Contents, Utils } from "../../Components/Chat";
 import { SafeAreaView } from "react-navigation";
 // import { styles } from "./Message.styles";
 
@@ -11,7 +11,8 @@ class Message extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isLoadEarlier: false
+      isLoadEarlier: false,
+      messages: Contents.Messages
     };
   }
   componentWillUnmount = () => {
@@ -26,7 +27,14 @@ class Message extends Component {
     });
     const that = this;
     this._loadTimer = setTimeout(() => {
-      that.setState({ isLoadEarlier: false });
+      const MessageBuilder = Utils.MessageBuilder;
+      const messageBuilder = new MessageBuilder();
+      messageBuilder.setText(new Date().toString());
+      messageBuilder.setUser(Contents.User);
+      const message = messageBuilder.build();
+      const messages = this.state.messages;
+      messages.push(message);
+      that.setState({ isLoadEarlier: false, messages: messages });
     }, 1000);
   };
   _renderHeader = () => {
@@ -48,7 +56,7 @@ class Message extends Component {
     console.log("MessageScreen did mount!");
   }
   render() {
-    const { isLoadEarlier } = this.state;
+    const { isLoadEarlier, messages } = this.state;
     const { _createLoaderTimer } = this;
     return (
       <SafeAreaView
@@ -58,12 +66,21 @@ class Message extends Component {
         <ThemeProvider>
           <Chat
             renderHeader={this._renderHeader}
-            messages={Contents.Messages}
+            messages={messages}
             user={Contents.User}
             isLoadEarlier={isLoadEarlier}
             onLoadEarlier={() => {
+              // _createLoaderTimer();
               console.log("onLoadEarlier");
-              _createLoaderTimer();
+              this.setState({ isLoadEarlier: true });
+              const MessageBuilder = Utils.MessageBuilder;
+              const messageBuilder = new MessageBuilder();
+              messageBuilder.setText(new Date().toString());
+              messageBuilder.setUser(Contents.User);
+              const message = messageBuilder.build();
+              const messages = this.state.messages;
+              messages.push(message);
+              this.setState({ isLoadEarlier: false, messages: messages });
             }}
             renderItem={props => <Chat.Message {...props} />}
           />
