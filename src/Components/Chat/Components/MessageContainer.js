@@ -75,10 +75,7 @@ export default class MessageContainer extends Component {
   }
   renderItem = ({ item }) => {
     const messageProps = {
-      key: item._id,
-      currentMessage: item,
-      previousMessage: item.previousMessage,
-      nextMessage: item.nextMessage,
+      message: item,
       position:
         item.user._id === this.props.user._id
           ? Strings.MESSAGE_POSITION_RIGHT
@@ -118,9 +115,7 @@ export default class MessageContainer extends Component {
           data={dataSource}
           renderItem={({ item }, index) => {
             const messageProps = {
-              currentMessage: item,
-              previousMessage: item.previousMessage,
-              nextMessage: item.nextMessage,
+              message: item,
               position:
                 item.user._id === this.props.user._id
                   ? Strings.MESSAGE_POSITION_RIGHT

@@ -4,83 +4,67 @@ import PropTypes from "prop-types";
 import Avatar from "./Avatar";
 import Bubble from "./Bubble";
 import getMessageContentHelper from "./MessageContent/getMessageContentHelper";
-import Day from "./Day";
 import Time from "./Time";
 import Name from "./Name";
 import Strings from "../Styles/Strings";
+import Constants from "../constants";
 import { styles } from "../Styles/Message.styles";
 import utils from "../utils";
 export default class Message extends Component {
   static defaultProps = {
     position: Strings.MESSAGE_POSITION_LEFT,
-    currentMessage: {},
-    previousMessage: {},
-    nextMessage: {}
+    type: Constants.MESSAGE_TYPE_TEXT,
+    message: {}
   };
   static propTypes = {
     position: PropTypes.oneOf([
       Strings.MESSAGE_POSITION_LEFT,
       Strings.MESSAGE_POSITION_RIGHT
     ]),
-    currentMessage: PropTypes.object,
-    previousMessage: PropTypes.object,
-    nextMessage: PropTypes.object
+    type: PropTypes.number,
+    message: PropTypes.object
   };
   constructor(props) {
     super(props);
   }
   renderAvatar = () => {
+    const { message } = this.props;
     const avatarProps = {
-      currentMessage: this.props.currentMessage,
-      previousMessage: this.props.currentMessage.previousMessage,
-      nextMessage: this.props.currentMessage.nextMessage
+      message: message
     };
     return <Avatar {...avatarProps} />;
   };
-  renderDay = () => {
-    const dayProps = {
-      currentMessage: this.props.currentMessage,
-      previousMessage: this.props.previousMessage,
-      nextMessage: this.props.nextMessage
-    };
-    return <Day {...dayProps} />;
-  };
   renderContent = () => {
-    const currentMessage = this.props.currentMessage;
-    const Content = getMessageContentHelper(currentMessage.type);
+    const { message, type, position } = this.props;
+    const Content = getMessageContentHelper(type);
     const left = this.props.position === Strings.MESSAGE_POSITION_LEFT;
     return (
-      <View style={[styles[this.props.position].layoutContent]}>
+      <View style={[styles[position].layoutContent]}>
         {left ? (
-          <View style={styles[this.props.position].layoutName}>
-            <Name currentMessage={this.props.currentMessage} />
+          <View style={styles[position].layoutName}>
+            <Name currentMessage={message} />
           </View>
         ) : null}
         <Bubble>
-          <Content currentMessage={this.props.currentMessage} />
+          <Content currentMessage={message} />
         </Bubble>
       </View>
     );
   };
   renderTime = () => {
-    const {
-      currentMessage,
-      previousMessage,
-      nextMessage,
-      position
-    } = this.props;
+    const { message, position } = this.props;
     const Styles = styles[position];
     const timeDiff = utils.timeDiffer(
-      currentMessage.createdAt,
-      previousMessage.createdAt
+      message.createdAt,
+      message.previousMessage.createdAt
     );
     if (timeDiff >= 300)
       return (
         <View style={[Styles.layoutTime]}>
           <Time
-            currentMessage={currentMessage}
-            previousMessage={previousMessage}
-            nextMessage={nextMessage}
+            currentMessage={message}
+            previousMessage={message.previousMessage}
+            nextMessage={message.nextMessag}
           />
         </View>
       );
@@ -104,7 +88,6 @@ export default class Message extends Component {
               ? this.renderAvatar()
               : null}
           </View>
-          {/* <Primary text="I'll see you in a bit ll see you in a bit ll see you in a bit ll see you in a bit ll see you in a bit ll see you in a bit ll see you in a bit ll see you in a bit" /> */}
           {this.renderContent()}
           <View style={[Styles.layoutAvatar]}>
             {position === Strings.MESSAGE_POSITION_RIGHT

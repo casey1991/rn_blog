@@ -4,23 +4,19 @@ import moment from "moment";
 import Styles from "../Styles/TimeStyles";
 import { View, Text } from "react-native";
 // import Utils from './Utils';
-export default class Day extends Component {
+export default class Time extends Component {
   static defaultProps = {
-    currentMessage: {},
-    previousMessage: {},
-    nextMessage: {}
+    message: {}
   };
   static propTypes = {
-    currentMessage: PropTypes.object,
-    previousMessage: PropTypes.object,
-    nextMessage: PropTypes.object
+    message: PropTypes.object
   };
   constructor(props) {
     super(props);
   }
   _formatTime = () => {
     const {
-      currentMessage: { createdAt: currentCreateAt }
+      message: { createdAt: currentCreateAt }
     } = this.props;
     const currentTime = moment(currentCreateAt);
     const timenow = moment(new Date());

@@ -6,15 +6,11 @@ import ThemeWrapper from "./ThemeWrapper";
 class Avatar extends Component {
   static propTypes = {
     onPress: PropTypes.func,
-    currentMessage: PropTypes.object,
-    previousMessage: PropTypes.object,
-    nextMessage: PropTypes.object
+    message: PropTypes.object
   };
   static defaultProps = {
     onPress: () => {},
-    currentMessage: {},
-    previousMessage: {},
-    nextMessage: {}
+    message: {}
   };
   constructor(props) {
     super(props);
@@ -22,11 +18,10 @@ class Avatar extends Component {
   render() {
     let inner;
     const { Colors } = this.props.theme;
+    const { message } = this.props;
     const imageSource =
-      this.props.currentMessage.user &&
-      this.props.currentMessage.user.avatars &&
-      this.props.currentMessage.user.avatars[0]
-        ? this.props.currentMessage.user.avatars[0].uri
+      message.user && message.user.avatars && message.user.avatars[0]
+        ? message.user.avatars[0].uri
         : null;
     if (imageSource) {
       inner = <Image source={{ uri: imageSource }} style={styles.image} />;
