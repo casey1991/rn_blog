@@ -6,7 +6,7 @@ import ThemeWrapper from "./ThemeWrapper";
 
 class LoadEarlier extends Component {
   static defaultProps = {
-    isLoadingEarlier: false
+    isLoadingEarlier: true
   };
   static propTypes = {
     isLoadingEarlier: PropTypes.bool

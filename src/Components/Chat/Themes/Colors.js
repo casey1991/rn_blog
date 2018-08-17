@@ -15,8 +15,8 @@ export default {
   timeTextColor: "#aaa",
   textColorDisable: "#AAAAAC",
 
-  primaryColor: "#FFDB43", //主题色
-  accentColor: "#E90E2A", //辅助色
+  primaryColor: "#9C27B0", //主题色
+  accentColor: "#FBC02D", //辅助色
   hintColor: "rgba(0,0,0,0.38)", //提示色
   textPrimaryColor: "rgba(0,0,0,0.78)", //主文本色
   textSecondaryColor: "rgba(0,0,0,0.56)", //輔文本色

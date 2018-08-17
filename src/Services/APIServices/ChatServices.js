@@ -5,6 +5,9 @@ const getRooms = async payload => {
 const sendMessage = async payload => {
   return { ok: true };
 };
+const getMessages = async payload => {
+  return { ok: true };
+};
 export default {
   getRooms,
   sendMessage

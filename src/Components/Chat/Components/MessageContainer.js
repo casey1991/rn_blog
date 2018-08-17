@@ -12,13 +12,15 @@ export default class MessageContainer extends Component {
     messages: PropTypes.arrayOf(PropTypes.object),
     renderItem: PropTypes.func,
     user: PropTypes.object,
-    onLoadEarlier: PropTypes.func
+    onLoadEarlier: PropTypes.func,
+    isLoadEarlier: PropTypes.bool
   };
   static defaultProps = {
     messages: [],
     renderItem: () => {},
     user: {},
-    onLoadEarlier: () => {}
+    onLoadEarlier: () => {},
+    isLoadEarlier: false
   };
   constructor(props) {
     super(props);
@@ -28,6 +30,7 @@ export default class MessageContainer extends Component {
       dataSource: messagesData
     };
     this._flatList = React.createRef();
+    this._canLoadEarlier = false;
   }
   componentDidUpdate(prevProps) {
     const { messages: prevMessages } = prevProps;
@@ -85,16 +88,13 @@ export default class MessageContainer extends Component {
     return <Message {...messageProps} />;
     // return <View />;
   };
-  renderLoadEarlier = () => {
-    const loadEarlierProps = {
-      isLoadingEarlier: this.props.isLoadingEarlier
-    };
-    return <LoadEarlier {...loadEarlierProps} />;
+  _renderLoadEarlier = () => {
+    return <LoadEarlier />;
   };
   render() {
-    const { renderItem, onLoadEarlier } = this.props;
+    const { renderItem, onLoadEarlier, isLoadEarlier } = this.props;
     const { dataSource } = this.state;
-    const { _flatList } = this;
+    const { _flatList, _renderLoadEarlier } = this;
     return (
       <View style={[Styles.container]}>
         <FlatList
@@ -123,23 +123,13 @@ export default class MessageContainer extends Component {
             };
             return renderItem(messageProps);
           }}
-          onEndReachedThreshold={1}
-          onEndReached={onLoadEarlier}
-        />
-        <View
-          style={{
-            position: "absolute",
-            alignItems: "center",
-            justifyContent: "center",
-            width: "100%"
+          onEndReachedThreshold={0.1}
+          ListFooterComponent={isLoadEarlier ? _renderLoadEarlier : null}
+          onEndReached={() => {
+            if (!isLoadEarlier) onLoadEarlier();
           }}
-        >
-          {this.renderLoadEarlier()}
-        </View>
+        />
       </View>
     );
   }
 }
-// export default React.forwardRef((props, ref) => (
-//   <MessageContainer {...props} ref={ref} />
-// ));

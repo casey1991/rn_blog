@@ -13,12 +13,16 @@ import Time from "./Time";
 export default class Chat extends Component {
   static propTypes = {
     messages: PropTypes.arrayOf(PropTypes.object),
+    onLoadEarlier: PropTypes.func,
+    isLoadEarlier: PropTypes.bool,
     renderItem: PropTypes.func,
     user: PropTypes.object,
     onSend: PropTypes.func
   };
   static defaultProps = {
     messages: [],
+    onLoadEarlier: () => {},
+    isLoadEarlier: false,
     renderItem: () => {},
     user: {},
     onSend: () => {}
@@ -52,13 +56,20 @@ export default class Chat extends Component {
   };
 
   renderMessages = () => {
-    const { messages, user, onLoadEarlier, renderItem } = this.props;
+    const {
+      messages,
+      user,
+      onLoadEarlier,
+      renderItem,
+      isLoadEarlier
+    } = this.props;
     return (
       <MessageContainer
         messages={messages}
         user={user}
         ref={this._messageContainer}
         onLoadEarlier={onLoadEarlier}
+        isLoadEarlier={isLoadEarlier}
         renderItem={renderItem}
       />
     );
