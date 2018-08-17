@@ -6,6 +6,10 @@ import InputToolBar from "./InputToolBar";
 import Send from "./Send";
 import { styles } from "../Styles/Chat.styles";
 import { MessageBuilder } from "../utils";
+import Message from "./Message";
+import Avatar from "./Avatar";
+import Bubble from "./Bubble";
+import Time from "./Time";
 export default class Chat extends Component {
   static propTypes = {
     messages: PropTypes.arrayOf(PropTypes.object),
@@ -19,6 +23,10 @@ export default class Chat extends Component {
     user: {},
     onSend: () => {}
   };
+  static Message = Message;
+  static Avatar = Avatar;
+  static Bubble = Bubble;
+  static Time = Time;
   constructor(props) {
     super(props);
     this.state = {

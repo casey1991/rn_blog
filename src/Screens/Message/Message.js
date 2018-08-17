@@ -1,15 +1,9 @@
 import React, { Component } from "react";
-import { View } from "react-native";
 import { connect } from "react-redux";
 import { Toolbar } from "../../Components/Toolbars/Toolbar";
 import { ToolbarContent } from "../../Components/Toolbars/ToolbarContent";
 import { ToolbarBackAction } from "../../Components/Toolbars/ToolbarBackAction";
-import {
-  Chat,
-  ThemeProvider,
-  Contents,
-  Message as ChatMessage
-} from "../../Components/Chat";
+import { Chat, ThemeProvider, Contents } from "../../Components/Chat";
 import { SafeAreaView } from "react-navigation";
 // import { styles } from "./Message.styles";
 
@@ -43,7 +37,7 @@ class Message extends Component {
             renderHeader={this._renderHeader}
             messages={Contents.Messages}
             user={Contents.User}
-            renderItem={props => <ChatMessage {...props} />}
+            renderItem={props => <Chat.Message {...props} />}
           />
         </ThemeProvider>
       </SafeAreaView>

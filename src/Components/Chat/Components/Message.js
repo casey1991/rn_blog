@@ -9,6 +9,11 @@ import Name from "./Name";
 import Strings from "../Styles/Strings";
 import Constants from "../constants";
 import { styles } from "../Styles/Message.styles";
+import File from "./MessageContent/File";
+import Image from "./MessageContent/Image";
+import Location from "./MessageContent/Location";
+import Text from "./MessageContent/Text";
+import Voice from "./MessageContent/Voice";
 import utils from "../utils";
 export default class Message extends Component {
   static defaultProps = {
@@ -24,6 +29,11 @@ export default class Message extends Component {
     type: PropTypes.number,
     message: PropTypes.object
   };
+  static File = File;
+  static Image = Image;
+  static Location = Location;
+  static Text = Text;
+  static Voice = Voice;
   constructor(props) {
     super(props);
   }
