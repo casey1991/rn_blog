@@ -52,7 +52,7 @@ export default class Message extends Component {
       <View style={[styles[position].layoutContent]}>
         {left ? (
           <View style={styles[position].layoutName}>
-            <Name currentMessage={message} />
+            <Name message={message} />
           </View>
         ) : null}
         <Bubble>
@@ -71,11 +71,7 @@ export default class Message extends Component {
     if (timeDiff >= 300)
       return (
         <View style={[Styles.layoutTime]}>
-          <Time
-            currentMessage={message}
-            previousMessage={message.previousMessage}
-            nextMessage={message.nextMessag}
-          />
+          <Time message={message} />
         </View>
       );
     else return null;
