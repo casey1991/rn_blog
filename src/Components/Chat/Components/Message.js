@@ -56,7 +56,7 @@ export default class Message extends Component {
           </View>
         ) : null}
         <Bubble>
-          <Content currentMessage={message} />
+          <Content message={message} />
         </Bubble>
       </View>
     );

@@ -4,17 +4,18 @@ import PrimaryText from "../Text/Primary";
 import PropTypes from "prop-types";
 class Text extends Component {
   static propTypes = {
-    currentMessage: PropTypes.object
+    message: PropTypes.object
   };
   static defaultProps = {
-    currentMessage: {
+    message: {
       text: "do not forget pass message in"
     }
   };
   render() {
+    const { message } = this.props;
     return (
       <View style={[styles.layoutContainer]}>
-        <PrimaryText text={this.props.currentMessage.text} />
+        <PrimaryText text={message.text} />
       </View>
     );
   }

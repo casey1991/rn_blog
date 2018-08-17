@@ -7,7 +7,7 @@ import PropTypes from "prop-types";
 import { Dimensions } from "../../Themes";
 class Location extends Component {
   static propTypes = {
-    currentMessage: PropTypes.object,
+    message: PropTypes.object,
     title: PropTypes.string,
     description: PropTypes.string,
     region: PropTypes.object
