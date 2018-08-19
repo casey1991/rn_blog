@@ -1,5 +1,6 @@
 import { takeEvery, call, put } from "redux-saga/effects";
 import { Types, Actions } from "./actions";
+import { Actions as EntityActions } from "../Entity/actions";
 import { handleResponse } from "../utils";
 import chatService from "../../Services/APIServices/ChatServices";
 import { Schemas, Selector } from "../../Services";
@@ -9,9 +10,9 @@ const createMessage = function*() {};
 const getRooms = function*() {
   const response = yield call(chatService.getRooms);
   function* onSuccess(data) {
-    console.log(data);
     const { result, entities } = Selector.normalize(data, [Schemas.Room]);
-    console.log(result, entities);
+    yield put(Actions.setRooms(result));
+    yield put(EntityActions.addEntities(entities));
   }
   function* onFailed(data) {}
   yield handleResponse(response)(onSuccess, onFailed);
