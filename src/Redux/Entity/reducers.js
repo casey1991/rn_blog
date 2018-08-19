@@ -2,18 +2,16 @@ import { handleActions } from "redux-actions";
 import Immutable from "seamless-immutable";
 import { Types } from "./actions";
 export const defaultState = Immutable({
-  rooms: [],
-  selectedRoom: null,
-  messages: []
+  rooms: []
 });
 const reset = () => {
   return defaultState;
 };
-const setRooms = (state, action) => {};
+const addEntities = (state, action) => {};
 export default handleActions(
   {
     [Types.RESET]: reset,
-    [Types.SET_ROOMS]: setRooms
+    [Types.ADD_ENTITIES]: addEntities
   },
   defaultState
 );

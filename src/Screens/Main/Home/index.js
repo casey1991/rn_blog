@@ -12,7 +12,6 @@ const styles = StyleSheet.create({
   }
 });
 function MaterialTopTabBarWithStatusBar(props) {
-  console.log(props);
   return (
     <View
       style={{

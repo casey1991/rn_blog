@@ -4,11 +4,13 @@ export const Types = {
   CREATE_ROOM: PREFIX + "CREATE_ROOM",
   CREATE_MESSAGE: PREFIX + "CREATE_MESSAGE",
   GET_ROOMS: PREFIX + "GET_ROOMS",
-  RESET: PREFIX + "RESET"
+  RESET: PREFIX + "RESET",
+  SET_ROOMS: PREFIX + "SET_ROOMS"
 };
 // normal actions
 const reset = createAction(Types.RESET);
 const getRooms = createAction(Types.GET_ROOMS);
+const setRooms = createAction(Types.SET_ROOMS);
 // saga actions
 const createRoom = createAction(Types.CREATE_ROOM);
 const createMessage = createAction(Types.CREATE_MESSAGE);
@@ -16,5 +18,6 @@ export const Actions = {
   reset,
   createRoom,
   createMessage,
-  getRooms
+  getRooms,
+  setRooms
 };
