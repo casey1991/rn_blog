@@ -7,6 +7,7 @@ import { ToolbarContent } from "../../Components/Toolbars/ToolbarContent";
 import { ListItem } from "../../Components/Common/ListItem/ListItem";
 import { styles } from "./Message.styles";
 import { Actions } from "../../Redux/Chat/actions";
+import { Selector } from "../../Services";
 class Messages extends Component {
   static navigationOptions = () => ({
     header: () => (
@@ -31,7 +32,7 @@ class Messages extends Component {
     } = this.props;
     return (
       <ListItem
-        title={"title"}
+        title={item.name}
         onPress={() => {
           navigate("ChatStack");
         }}
@@ -42,10 +43,11 @@ class Messages extends Component {
     return index + "";
   };
   render() {
+    const { rooms } = this.props;
     return (
       <View style={[{ flex: 1 }]}>
         <FlatList
-          data={["1", "2", "3"]}
+          data={rooms}
           renderItem={this._renderItem}
           keyExtractor={this._keyExtractor}
         />
@@ -54,7 +56,8 @@ class Messages extends Component {
   }
 }
 const mapStateToProps = state => ({
-  token: state.auth.token
+  token: state.auth.token,
+  rooms: Selector.hydrate(state, state.chat.rooms)
 });
 const mapDispatchToProps = dispatch =>
   bindActionCreators(

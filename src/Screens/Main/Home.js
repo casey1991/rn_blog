@@ -8,9 +8,7 @@ import { HomeTabScreen } from "./Home/index";
 import { styles } from "./Home.styles";
 
 class Home extends Component {
-  componentDidMount() {
-    console.log("HomeScreen did mount!");
-  }
+  componentDidMount() {}
   render() {
     const { createArticle } = this.props;
     return (

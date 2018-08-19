@@ -10,7 +10,6 @@ const reset = () => {
   return defaultState;
 };
 const setRooms = (state, action) => {
-  console.log("setRoms:", action.payload);
   return Immutable.setIn(state, ["rooms"], action.payload);
 };
 export default handleActions(

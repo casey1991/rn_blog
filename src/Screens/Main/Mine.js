@@ -26,9 +26,7 @@ class Profile extends Component {
       this._login();
     }
   };
-  componentDidMount() {
-    console.log("MineScreen did mount!");
-  }
+  componentDidMount() {}
   render() {
     const { user } = this.props;
     return (

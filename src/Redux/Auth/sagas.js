@@ -12,9 +12,7 @@ export const login = function*(action) {
     yield put(Actions.setTokenExpire(expiresIn));
     yield put(Actions.getCurrentUser());
   }
-  function* onFailed(data) {
-    console.log(data);
-  }
+  function* onFailed(data) {}
   yield handleResponse(response)(onSuccess, onFailed);
 };
 export const getCurrentUser = function*() {

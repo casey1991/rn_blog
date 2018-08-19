@@ -1,7 +1,10 @@
 import { handleActions } from "redux-actions";
 import Immutable from "seamless-immutable";
 import { Types } from "./actions";
-export const defaultState = Immutable({});
+export const defaultState = Immutable({
+  user: [],
+  room: []
+});
 const reset = () => {
   return defaultState;
 };

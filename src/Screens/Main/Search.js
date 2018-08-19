@@ -14,9 +14,7 @@ class Search extends Component {
   static navigationOptions = () => ({
     header: () => <Searchbar />
   });
-  componentDidMount() {
-    console.log("HomeScreen did mount!");
-  }
+  componentDidMount() {}
   render() {
     const { createArticle, navigation } = this.props;
     return (

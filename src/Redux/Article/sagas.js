@@ -4,7 +4,6 @@ import ArticleService from "../../Services/APIServices/ArticleService";
 import { handleResponse } from "../utils";
 
 export const create = function*(action) {
-  console.log(action);
   // const response = yield call(ArticleService.create, action.payload);
   function* onSuccess(data) {}
   function* onFailed(data) {}

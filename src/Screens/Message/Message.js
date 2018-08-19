@@ -52,9 +52,7 @@ class Message extends Component {
       </Toolbar>
     );
   };
-  componentDidMount() {
-    console.log("MessageScreen did mount!");
-  }
+  componentDidMount() {}
   render() {
     const { isLoadEarlier, messages } = this.state;
     const { _createLoaderTimer } = this;
@@ -71,7 +69,6 @@ class Message extends Component {
             isLoadEarlier={isLoadEarlier}
             onLoadEarlier={() => {
               // _createLoaderTimer();
-              console.log("onLoadEarlier");
               this.setState({ isLoadEarlier: true });
               const MessageBuilder = Utils.MessageBuilder;
               const messageBuilder = new MessageBuilder();

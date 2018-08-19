@@ -18,9 +18,7 @@ class HomeAll extends Component {
       </Toolbar>
     )
   });
-  componentDidMount() {
-    console.log("HomeScreen did mount!");
-  }
+  componentDidMount() {}
   render() {
     const { createArticle } = this.props;
     return (

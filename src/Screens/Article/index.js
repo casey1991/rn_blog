@@ -20,9 +20,7 @@ class ArticleDetail extends Component {
       </Toolbar>
     )
   });
-  componentDidMount() {
-    console.log("ArticleScreen did mount!");
-  }
+  componentDidMount() {}
   render() {
     const { createArticle } = this.props;
     return (
