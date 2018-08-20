@@ -59,7 +59,7 @@ class Messages extends Component {
 }
 const mapStateToProps = state => ({
   token: state.auth.token,
-  rooms: Selector.hydrate(state, state.chat.rooms)
+  rooms: Selector.hydrateEntities(state, state.chat.rooms, "Room")
 });
 const mapDispatchToProps = dispatch =>
   bindActionCreators(

@@ -1,12 +1,29 @@
 import { normalize, denormalize } from "normalizr";
 import Schemas from "./Schemas";
 import * as _ from "lodash";
-const hydrate = (state, id) => {
+const hydrateEntities = (state, ids, schema) => {
   const result = denormalize(
-    { rooms: id },
-    { rooms: [Schemas.Room] },
+    { data: ids },
+    { data: [schemaHelper(schema)] },
     state.entity
   );
-  return _.compact(result.rooms);
+  return _.compact(result.data);
 };
-export default { normalize, denormalize, hydrate };
+const hydrateEntity = (state, id, schema) => {
+  const result = denormalize(
+    { data: id },
+    { data: schemaHelper(schema) },
+    state.entity
+  );
+  return result.data;
+};
+const schemaHelper = string => {
+  return Schemas[string];
+};
+export default {
+  normalize,
+  denormalize,
+  hydrateEntities,
+  hydrateEntity,
+  schemaHelper
+};

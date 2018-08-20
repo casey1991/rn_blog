@@ -1,4 +1,4 @@
-import { normalize, schema as Schema } from "normalizr";
+import { schema as Schema } from "normalizr";
 const User = new Schema.Entity("user", {}, { idAttribute: "_id" });
 const Message = new Schema.Entity(
   "message",

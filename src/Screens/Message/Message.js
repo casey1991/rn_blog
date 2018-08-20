@@ -7,7 +7,7 @@ import { ToolbarBackAction } from "../../Components/Toolbars/ToolbarBackAction";
 import { Chat, ThemeProvider, Contents, Utils } from "../../Components/Chat";
 import { SafeAreaView } from "react-navigation";
 import { Actions } from "../../Redux/Chat/actions";
-// import { styles } from "./Message.styles";
+import { Selector } from "../../Services";
 
 class Message extends Component {
   constructor(props) {
@@ -27,22 +27,6 @@ class Message extends Component {
       this._loadTimer = null;
     }
   };
-  _createLoaderTimer = () => {
-    this.setState({
-      isLoadEarlier: true
-    });
-    const that = this;
-    this._loadTimer = setTimeout(() => {
-      const MessageBuilder = Utils.MessageBuilder;
-      const messageBuilder = new MessageBuilder();
-      messageBuilder.setText(new Date().toString());
-      messageBuilder.setUser(Contents.User);
-      const message = messageBuilder.build();
-      const messages = this.state.messages;
-      messages.push(message);
-      that.setState({ isLoadEarlier: false, messages: messages });
-    }, 1000);
-  };
   _renderHeader = () => {
     const {
       navigation: { goBack }
@@ -58,10 +42,9 @@ class Message extends Component {
       </Toolbar>
     );
   };
-  componentDidMount() {}
   render() {
-    const { isLoadEarlier, messages } = this.state;
-    const { _createLoaderTimer } = this;
+    const { isLoadEarlier } = this.state;
+    const { messages } = this.props;
     return (
       <SafeAreaView
         style={[{ flex: 1, backgroundColor: "#FFF" }]}
@@ -73,18 +56,7 @@ class Message extends Component {
             messages={messages}
             user={Contents.User}
             isLoadEarlier={isLoadEarlier}
-            onLoadEarlier={() => {
-              // _createLoaderTimer();
-              this.setState({ isLoadEarlier: true });
-              const MessageBuilder = Utils.MessageBuilder;
-              const messageBuilder = new MessageBuilder();
-              messageBuilder.setText(new Date().toString());
-              messageBuilder.setUser(Contents.User);
-              const message = messageBuilder.build();
-              const messages = this.state.messages;
-              messages.push(message);
-              this.setState({ isLoadEarlier: false, messages: messages });
-            }}
+            onLoadEarlier={() => {}}
             renderItem={props => <Chat.Message {...props} />}
           />
         </ThemeProvider>
@@ -93,7 +65,8 @@ class Message extends Component {
   }
 }
 const mapStateToProps = state => ({
-  room: state.chat.selectedRoom
+  room: state.chat.selectedRoom,
+  messages: Selector.hydrateEntities(state, state.chat.messages, "Message")
 });
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
