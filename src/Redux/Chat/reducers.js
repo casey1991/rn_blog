@@ -15,11 +15,15 @@ const setRooms = (state, action) => {
 const setSelectedRoom = (state, action) => {
   return Immutable.setIn(state, ["selectedRoom"], action.payload);
 };
+const setMessages = (state, action) => {
+  return Immutable.setIn(state, ["messages"], action.payload);
+};
 export default handleActions(
   {
     [Types.RESET]: reset,
     [Types.SET_ROOMS]: setRooms,
-    [Types.SET_SELECTED_ROOM]: setSelectedRoom
+    [Types.SET_SELECTED_ROOM]: setSelectedRoom,
+    [Types.SET_MESSAGES]: setMessages
   },
   defaultState
 );

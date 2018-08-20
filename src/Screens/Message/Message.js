@@ -1,10 +1,12 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
 import { Toolbar } from "../../Components/Toolbars/Toolbar";
 import { ToolbarContent } from "../../Components/Toolbars/ToolbarContent";
 import { ToolbarBackAction } from "../../Components/Toolbars/ToolbarBackAction";
 import { Chat, ThemeProvider, Contents, Utils } from "../../Components/Chat";
 import { SafeAreaView } from "react-navigation";
+import { Actions } from "../../Redux/Chat/actions";
 // import { styles } from "./Message.styles";
 
 class Message extends Component {
@@ -15,6 +17,10 @@ class Message extends Component {
       messages: Contents.Messages
     };
   }
+  componentDidMount = () => {
+    const { getMessages } = this.props;
+    getMessages();
+  };
   componentWillUnmount = () => {
     if (this._loadTimer) {
       clearTimeout(this._loadTimer);
@@ -86,8 +92,16 @@ class Message extends Component {
     );
   }
 }
-const mapStateToProps = () => ({});
-const mapDispatchToProps = () => ({});
+const mapStateToProps = state => ({
+  room: state.chat.selectedRoom
+});
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(
+    {
+      getMessages: Actions.getMessages
+    },
+    dispatch
+  );
 export const MessageScreen = connect(
   mapStateToProps,
   mapDispatchToProps
