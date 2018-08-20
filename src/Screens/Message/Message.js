@@ -18,8 +18,8 @@ class Message extends Component {
     };
   }
   componentDidMount = () => {
-    const { getMessages } = this.props;
-    getMessages();
+    const { getMessages, room } = this.props;
+    getMessages({ room });
   };
   componentWillUnmount = () => {
     if (this._loadTimer) {

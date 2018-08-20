@@ -6,7 +6,7 @@ const sendMessage = async payload => {
   return { ok: true };
 };
 const getMessages = async payload => {
-  return await api.get("chat-message/messages");
+  return await api.get(`chat-message/messages?room=${payload.room}`);
 };
 export default {
   getRooms,

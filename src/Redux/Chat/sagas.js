@@ -17,8 +17,8 @@ const getRooms = function*() {
   function* onFailed(data) {}
   yield handleResponse(response)(onSuccess, onFailed);
 };
-const getMessages = function*() {
-  const response = yield call(chatService.getMessages);
+const getMessages = function*(action) {
+  const response = yield call(chatService.getMessages, action.payload);
   function* onSuccess(data) {
     const { result, entities } = Selector.normalize(data, [Schemas.Message]);
     yield put(Actions.setMessages(result));
