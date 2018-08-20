@@ -28,12 +28,14 @@ class Messages extends Component {
   }
   _renderItem = ({ item }) => {
     const {
-      navigation: { navigate }
+      navigation: { navigate },
+      setSelectedRoom
     } = this.props;
     return (
       <ListItem
         title={item.name}
         onPress={() => {
+          setSelectedRoom(item._id);
           navigate("ChatStack");
         }}
       />
@@ -62,7 +64,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
-      getRooms: Actions.getRooms
+      getRooms: Actions.getRooms,
+      setSelectedRoom: Actions.setSelectedRoom
     },
     dispatch
   );
