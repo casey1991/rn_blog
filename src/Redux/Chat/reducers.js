@@ -19,6 +19,9 @@ const setSelectedRoom = (state, action) => {
 const setMessages = (state, action) => {
   return Immutable.setIn(state, ["messages"], action.payload);
 };
+const cleanMessags = state => {
+  return Immutable.merge(state, { messages: [] });
+};
 const setMessage = (state, action) => {
   return Immutable.updateIn(
     state,
@@ -35,7 +38,8 @@ export default handleActions(
     [Types.SET_ROOMS]: setRooms,
     [Types.SET_SELECTED_ROOM]: setSelectedRoom,
     [Types.SET_MESSAGES]: setMessages,
-    [Types.SET_MESSAGE]: setMessage
+    [Types.SET_MESSAGE]: setMessage,
+    [Types.CLEAN_MESSAGES]: cleanMessags
   },
   defaultState
 );

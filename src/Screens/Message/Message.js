@@ -23,10 +23,8 @@ class Message extends Component {
     getMessages({ room });
   };
   componentWillUnmount = () => {
-    if (this._loadTimer) {
-      clearTimeout(this._loadTimer);
-      this._loadTimer = null;
-    }
+    const { cleanMessages } = this.props;
+    cleanMessages();
   };
   _renderHeader = () => {
     const {
@@ -77,7 +75,8 @@ const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
       getMessages: Actions.getMessages,
-      sendMessage: Actions.sendMessage
+      sendMessage: Actions.sendMessage,
+      cleanMessages: Actions.cleanMessages
     },
     dispatch
   );

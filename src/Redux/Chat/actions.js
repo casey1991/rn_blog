@@ -9,6 +9,7 @@ export const Types = {
   RESET: PREFIX + "RESET",
   SET_ROOMS: PREFIX + "SET_ROOMS",
   SET_MESSAGES: PREFIX + "SET_MESSAGES",
+  CLEAN_MESSAGES: PREFIX + "CLEAN_ROOM", // clean messages when leave room
   SET_MESSAGE: PREFIX + "SET_MESSAGE",
   SET_SELECTED_ROOM: PREFIX + "SET_SELECTED_ROOM"
 };
@@ -18,6 +19,7 @@ const setRooms = createAction(Types.SET_ROOMS);
 const setSelectedRoom = createAction(Types.SET_SELECTED_ROOM);
 const setMessages = createAction(Types.SET_MESSAGES);
 const setMessage = createAction(Types.SET_MESSAGE);
+const cleanMessages = createAction(Types.CLEAN_MESSAGES);
 // saga actions
 const createRoom = createAction(Types.CREATE_ROOM);
 const createMessage = createAction(Types.CREATE_MESSAGE);
@@ -29,6 +31,7 @@ export const Actions = {
   createMessage,
   getRooms,
   getMessages,
+  cleanMessages,
   sendMessage,
   reset,
   setRooms,
