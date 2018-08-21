@@ -91,14 +91,14 @@ export default class MessageContainer extends Component {
   _onLoadMore = args => {
     const { onLoadEarlier } = this.props;
     const { distanceFromEnd } = args;
-    if (distanceFromEnd > 0) {
+    if (distanceFromEnd > -100) {
       onLoadEarlier();
     }
   };
   render() {
     const { renderItem, isLoadEarlier, onLoadEarlier } = this.props;
     const { dataSource } = this.state;
-    const { _flatList } = this;
+    const { _flatList, _onLoadMore } = this;
     return (
       <View style={[Styles.container]}>
         <LoadingWrapper isLoading={isLoadEarlier}>
@@ -129,7 +129,7 @@ export default class MessageContainer extends Component {
               return renderItem(messageProps);
             }}
             onEndReachedThreshold={-0.1}
-            onEndReached={onLoadEarlier}
+            onEndReached={_onLoadMore}
           />
         </LoadingWrapper>
       </View>
