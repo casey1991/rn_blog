@@ -7,6 +7,7 @@ import { Actions } from "../../Redux/Article/actions";
 import { HomeTabScreen } from "./Home/index";
 import { styles } from "./Home.styles";
 import { BottomSheet } from "../../Components/Common/BottomSheet";
+import Immutable from "seamless-immutable";
 
 class Home extends Component {
   constructor(props) {
@@ -15,7 +16,17 @@ class Home extends Component {
       modalVisible: false
     };
   }
-  componentDidMount() {}
+  componentDidMount() {
+    // const old = { hei: ["1"] };
+    // const result = Immutable.updateIn(
+    //   old,
+    //   ["hei"],
+    //   arg => {
+    //     return ["2"];
+    //   },
+    //   { deep: true }
+    // );
+  }
   render() {
     const { modalVisible } = this.state;
     return (

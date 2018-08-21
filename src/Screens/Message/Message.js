@@ -46,7 +46,6 @@ class Message extends Component {
   render() {
     const { isLoadEarlier } = this.state;
     const { messages, sendMessage, room, currentUser } = this.props;
-    console.log(messages);
     return (
       <SafeAreaView
         style={[{ flex: 1, backgroundColor: "#FFF" }]}

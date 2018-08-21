@@ -33,6 +33,7 @@ const sendMessage = function*(action) {
   const response = yield call(chatService.sendMessage, action.payload);
   function* onSuccess(data) {
     const { result, entities } = Selector.normalize(data, Schemas.Message);
+    yield put(Actions.setMessage(result));
     yield put(EntityActions.addEntities(entities));
   }
   function* onFailed(data) {}

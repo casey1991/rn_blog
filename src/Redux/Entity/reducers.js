@@ -3,13 +3,14 @@ import Immutable from "seamless-immutable";
 import { Types } from "./actions";
 export const defaultState = Immutable({
   user: [],
-  room: []
+  room: [],
+  message: []
 });
 const reset = () => {
   return defaultState;
 };
 const addEntities = (state, action) => {
-  return Immutable.merge(state, action.payload);
+  return Immutable.merge(state, action.payload, { deep: true });
 };
 export default handleActions(
   {

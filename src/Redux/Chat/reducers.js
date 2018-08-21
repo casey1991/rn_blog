@@ -1,6 +1,7 @@
 import { handleActions } from "redux-actions";
 import Immutable from "seamless-immutable";
 import { Types } from "./actions";
+import * as _ from "lodash";
 export const defaultState = Immutable({
   rooms: [],
   selectedRoom: null,
@@ -18,12 +19,23 @@ const setSelectedRoom = (state, action) => {
 const setMessages = (state, action) => {
   return Immutable.setIn(state, ["messages"], action.payload);
 };
+const setMessage = (state, action) => {
+  return Immutable.updateIn(
+    state,
+    ["messages"],
+    old => {
+      return _.concat([action.payload], old);
+    },
+    { deep: true }
+  );
+};
 export default handleActions(
   {
     [Types.RESET]: reset,
     [Types.SET_ROOMS]: setRooms,
     [Types.SET_SELECTED_ROOM]: setSelectedRoom,
-    [Types.SET_MESSAGES]: setMessages
+    [Types.SET_MESSAGES]: setMessages,
+    [Types.SET_MESSAGE]: setMessage
   },
   defaultState
 );
