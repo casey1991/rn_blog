@@ -17,10 +17,8 @@ class LoadingWrapper extends Component {
   render() {
     const { isLoading } = this.props;
     return (
-      <View style={{ height: "100%" }}>
-        <View style={{ position: "absolute" }}>
-          <LoadEarlier isLoadingEarlier={isLoading} />
-        </View>
+      <View style={{ flex: 1, flexDirection: "column" }}>
+        <LoadEarlier isLoadingEarlier={isLoading} />
         {this.props.children}
       </View>
     );

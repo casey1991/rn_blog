@@ -96,7 +96,7 @@ export default class MessageContainer extends Component {
     }
   };
   render() {
-    const { renderItem, isLoadEarlier } = this.props;
+    const { renderItem, isLoadEarlier, onLoadEarlier } = this.props;
     const { dataSource } = this.state;
     const { _flatList } = this;
     return (
@@ -128,8 +128,8 @@ export default class MessageContainer extends Component {
               };
               return renderItem(messageProps);
             }}
-            onEndReachedThreshold={0.1}
-            onEndReached={args => this._onLoadMore(args)}
+            onEndReachedThreshold={-0.1}
+            onEndReached={onLoadEarlier}
           />
         </LoadingWrapper>
       </View>
