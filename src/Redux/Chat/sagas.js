@@ -20,17 +20,28 @@ const getRooms = function*() {
 const getMessages = function*(action) {
   const response = yield call(chatService.getMessages, action.payload);
   function* onSuccess(data) {
-    const { result, entities } = Selector.normalize(data, [Schemas.Message]);
+    const { result, entities } = Selector.normalize(data.docs, [
+      Schemas.Message
+    ]);
     yield put(Actions.setMessages(result));
     yield put(EntityActions.addEntities(entities));
   }
   function* onFailed(data) {}
   yield handleResponse(response)(onSuccess, onFailed);
 };
-
+const sendMessage = function*(action) {
+  const response = yield call(chatService.sendMessage, action.payload);
+  function* onSuccess(data) {
+    const { result, entities } = Selector.normalize(data, Schemas.Message);
+    yield put(EntityActions.addEntities(entities));
+  }
+  function* onFailed(data) {}
+  yield handleResponse(response)(onSuccess, onFailed);
+};
 export const chatSaga = function*() {
   yield takeEvery(Types.CREATE_ROOM, createRoom);
   yield takeEvery(Types.CREATE_MESSAGE, createMessage);
   yield takeEvery(Types.GET_ROOMS, getRooms);
   yield takeEvery(Types.GET_MESSAGES, getMessages);
+  yield takeEvery(Types.SEND_MESSAGE, sendMessage);
 };

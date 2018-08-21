@@ -5,6 +5,7 @@ export const Types = {
   CREATE_MESSAGE: PREFIX + "CREATE_MESSAGE",
   GET_ROOMS: PREFIX + "GET_ROOMS",
   GET_MESSAGES: PREFIX + "GET_MESSAGES",
+  SEND_MESSAGE: PREFIX + "SEND_MESSAGE",
   RESET: PREFIX + "RESET",
   SET_ROOMS: PREFIX + "SET_ROOMS",
   SET_MESSAGES: PREFIX + "SET_MESSAGES",
@@ -20,11 +21,13 @@ const createRoom = createAction(Types.CREATE_ROOM);
 const createMessage = createAction(Types.CREATE_MESSAGE);
 const getRooms = createAction(Types.GET_ROOMS);
 const getMessages = createAction(Types.GET_MESSAGES);
+const sendMessage = createAction(Types.SEND_MESSAGE);
 export const Actions = {
   createRoom,
   createMessage,
   getRooms,
   getMessages,
+  sendMessage,
   reset,
   setRooms,
   setSelectedRoom,

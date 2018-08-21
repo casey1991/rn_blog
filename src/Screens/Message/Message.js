@@ -8,6 +8,7 @@ import { Chat, ThemeProvider, Contents, Utils } from "../../Components/Chat";
 import { SafeAreaView } from "react-navigation";
 import { Actions } from "../../Redux/Chat/actions";
 import { Selector } from "../../Services";
+import * as _ from "lodash";
 
 class Message extends Component {
   constructor(props) {
@@ -44,7 +45,8 @@ class Message extends Component {
   };
   render() {
     const { isLoadEarlier } = this.state;
-    const { messages } = this.props;
+    const { messages, sendMessage, room, currentUser } = this.props;
+    console.log(messages);
     return (
       <SafeAreaView
         style={[{ flex: 1, backgroundColor: "#FFF" }]}
@@ -54,9 +56,12 @@ class Message extends Component {
           <Chat
             renderHeader={this._renderHeader}
             messages={messages}
-            user={Contents.User}
+            user={currentUser}
             isLoadEarlier={isLoadEarlier}
             onLoadEarlier={() => {}}
+            onSend={data => {
+              sendMessage(_.assign(data, { room: room }));
+            }}
             renderItem={props => <Chat.Message {...props} />}
           />
         </ThemeProvider>
@@ -66,12 +71,14 @@ class Message extends Component {
 }
 const mapStateToProps = state => ({
   room: state.chat.selectedRoom,
+  currentUser: state.auth.user,
   messages: Selector.hydrateEntities(state, state.chat.messages, "Message")
 });
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
-      getMessages: Actions.getMessages
+      getMessages: Actions.getMessages,
+      sendMessage: Actions.sendMessage
     },
     dispatch
   );
