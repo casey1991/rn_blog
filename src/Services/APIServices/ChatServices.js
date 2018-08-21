@@ -4,7 +4,11 @@ const getRooms = async payload => {
 };
 
 const getMessages = async payload => {
-  return await api.get(`chat-message/messages?room=${payload.room}`);
+  return await api.get(
+    `chat-message/messages?room=${payload.room}&limit=${payload.limit}&offset=${
+      payload.offset
+    }`
+  );
 };
 const sendMessage = async payload => {
   return await api.post(`chat-message`, payload);

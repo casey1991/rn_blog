@@ -18,15 +18,20 @@ const getRooms = function*() {
   yield handleResponse(response)(onSuccess, onFailed);
 };
 const getMessages = function*(action) {
+  yield put(Actions.setLoading(true));
   const response = yield call(chatService.getMessages, action.payload);
   function* onSuccess(data) {
-    const { result, entities } = Selector.normalize(data.docs, [
-      Schemas.Message
-    ]);
+    const { docs, limit, offset } = data;
+    const { result, entities } = Selector.normalize(docs, [Schemas.Message]);
     yield put(Actions.setMessages(result));
     yield put(EntityActions.addEntities(entities));
+    yield put(Actions.setLimit(limit));
+    yield put(Actions.setOffset(offset));
+    yield put(Actions.setLoading(false));
   }
-  function* onFailed(data) {}
+  function* onFailed(data) {
+    yield put(Actions.setLoading(false));
+  }
   yield handleResponse(response)(onSuccess, onFailed);
 };
 const sendMessage = function*(action) {

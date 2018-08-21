@@ -13,14 +13,10 @@ import * as _ from "lodash";
 class Message extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      isLoadEarlier: false,
-      messages: Contents.Messages
-    };
   }
   componentDidMount = () => {
-    const { getMessages, room } = this.props;
-    getMessages({ room });
+    const { getMessages, room, offset, limit } = this.props;
+    getMessages({ room, offset, limit });
   };
   componentWillUnmount = () => {
     const { cleanMessages } = this.props;
@@ -42,8 +38,16 @@ class Message extends Component {
     );
   };
   render() {
-    const { isLoadEarlier } = this.state;
-    const { messages, sendMessage, room, currentUser } = this.props;
+    const {
+      messages,
+      sendMessage,
+      room,
+      currentUser,
+      getMessages,
+      isLoading,
+      offset,
+      limit
+    } = this.props;
     return (
       <SafeAreaView
         style={[{ flex: 1, backgroundColor: "#FFF" }]}
@@ -54,8 +58,12 @@ class Message extends Component {
             renderHeader={this._renderHeader}
             messages={messages}
             user={currentUser}
-            isLoadEarlier={isLoadEarlier}
-            onLoadEarlier={() => {}}
+            isLoadEarlier={isLoading}
+            onLoadEarlier={() => {
+              if (!isLoading) {
+                getMessages({ room, offset: offset + limit, limit });
+              }
+            }}
             onSend={data => {
               sendMessage(_.assign(data, { room: room }));
             }}
@@ -69,6 +77,9 @@ class Message extends Component {
 const mapStateToProps = state => ({
   room: state.chat.selectedRoom,
   currentUser: state.auth.user,
+  offset: state.chat.paginate.offset,
+  limit: state.chat.paginate.limit,
+  isLoading: state.chat.paginate.isLoading,
   messages: Selector.hydrateEntities(state, state.chat.messages, "Message")
 });
 const mapDispatchToProps = dispatch =>

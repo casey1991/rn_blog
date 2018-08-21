@@ -2,11 +2,18 @@ import { handleActions } from "redux-actions";
 import Immutable from "seamless-immutable";
 import { Types } from "./actions";
 import * as _ from "lodash";
+export const defaultPaginate = Immutable({
+  offset: 0,
+  limit: 10,
+  isLoading: false
+});
 export const defaultState = Immutable({
   rooms: [],
   selectedRoom: null,
-  messages: []
+  messages: [],
+  paginate: defaultPaginate
 });
+
 const reset = () => {
   return defaultState;
 };
@@ -20,7 +27,10 @@ const setMessages = (state, action) => {
   return Immutable.setIn(state, ["messages"], action.payload);
 };
 const cleanMessags = state => {
-  return Immutable.merge(state, { messages: [] });
+  return Immutable.merge(state, {
+    messages: [],
+    paginate: defaultPaginate
+  });
 };
 const setMessage = (state, action) => {
   return Immutable.updateIn(
@@ -32,6 +42,15 @@ const setMessage = (state, action) => {
     { deep: true }
   );
 };
+const setOffset = (state, action) => {
+  return Immutable.setIn(state, ["paginate", "offset"], action.payload);
+};
+const setLimit = (state, action) => {
+  return Immutable.setIn(state, ["paginate", "limit"], action.payload);
+};
+const setLoading = (state, action) => {
+  return Immutable.setIn(state, ["paginate", "isLoading"], action.payload);
+};
 export default handleActions(
   {
     [Types.RESET]: reset,
@@ -39,7 +58,10 @@ export default handleActions(
     [Types.SET_SELECTED_ROOM]: setSelectedRoom,
     [Types.SET_MESSAGES]: setMessages,
     [Types.SET_MESSAGE]: setMessage,
-    [Types.CLEAN_MESSAGES]: cleanMessags
+    [Types.CLEAN_MESSAGES]: cleanMessags,
+    [Types.SET_LIMIT]: setLimit,
+    [Types.SET_OFFSET]: setOffset,
+    [Types.SET_LOADING]: setLoading
   },
   defaultState
 );
