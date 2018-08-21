@@ -88,9 +88,12 @@ export default class MessageContainer extends Component {
     return <Message {...messageProps} />;
     // return <View />;
   };
-  _onLoadMore = () => {
+  _onLoadMore = args => {
     const { onLoadEarlier } = this.props;
-    onLoadEarlier();
+    const { distanceFromEnd } = args;
+    if (distanceFromEnd > 0) {
+      onLoadEarlier();
+    }
   };
   render() {
     const { renderItem, isLoadEarlier } = this.props;
@@ -126,7 +129,7 @@ export default class MessageContainer extends Component {
               return renderItem(messageProps);
             }}
             onEndReachedThreshold={0.1}
-            onEndReached={() => this._onLoadMore()}
+            onEndReached={args => this._onLoadMore(args)}
           />
         </LoadingWrapper>
       </View>

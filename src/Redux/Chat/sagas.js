@@ -1,4 +1,4 @@
-import { takeEvery, call, put } from "redux-saga/effects";
+import { takeEvery, takeLatest, call, put } from "redux-saga/effects";
 import { Types, Actions } from "./actions";
 import { Actions as EntityActions } from "../Entity/actions";
 import { handleResponse } from "../utils";
@@ -48,6 +48,6 @@ export const chatSaga = function*() {
   yield takeEvery(Types.CREATE_ROOM, createRoom);
   yield takeEvery(Types.CREATE_MESSAGE, createMessage);
   yield takeEvery(Types.GET_ROOMS, getRooms);
-  yield takeEvery(Types.GET_MESSAGES, getMessages);
+  yield takeLatest(Types.GET_MESSAGES, getMessages);
   yield takeEvery(Types.SEND_MESSAGE, sendMessage);
 };
