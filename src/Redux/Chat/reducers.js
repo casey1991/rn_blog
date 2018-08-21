@@ -24,7 +24,14 @@ const setSelectedRoom = (state, action) => {
   return Immutable.setIn(state, ["selectedRoom"], action.payload);
 };
 const setMessages = (state, action) => {
-  return Immutable.setIn(state, ["messages"], action.payload);
+  return Immutable.updateIn(
+    state,
+    ["messages"],
+    old => {
+      return _.concat(old, action.payload);
+    },
+    { deep: true }
+  );
 };
 const cleanMessags = state => {
   return Immutable.merge(state, {

@@ -88,8 +88,12 @@ export default class MessageContainer extends Component {
     return <Message {...messageProps} />;
     // return <View />;
   };
+  _onLoadMore = () => {
+    const { onLoadEarlier } = this.props;
+    onLoadEarlier();
+  };
   render() {
-    const { renderItem, onLoadEarlier, isLoadEarlier } = this.props;
+    const { renderItem, isLoadEarlier } = this.props;
     const { dataSource } = this.state;
     const { _flatList } = this;
     return (
@@ -122,9 +126,7 @@ export default class MessageContainer extends Component {
               return renderItem(messageProps);
             }}
             onEndReachedThreshold={0.1}
-            onEndReached={() => {
-              onLoadEarlier();
-            }}
+            onEndReached={() => this._onLoadMore()}
           />
         </LoadingWrapper>
       </View>
