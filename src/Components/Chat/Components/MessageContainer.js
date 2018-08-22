@@ -12,15 +12,17 @@ export default class MessageContainer extends Component {
     messages: PropTypes.arrayOf(PropTypes.object),
     renderItem: PropTypes.func,
     user: PropTypes.object,
-    onLoadEarlier: PropTypes.func,
-    isLoadEarlier: PropTypes.bool
+    canLoadMore: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
+    isLoadingMore: PropTypes.bool,
+    onLoadMore: PropTypes.func
   };
   static defaultProps = {
     messages: [],
     renderItem: () => {},
     user: {},
-    onLoadEarlier: () => {},
-    isLoadEarlier: false
+    canLoadMore: false,
+    isLoadingMore: false,
+    onLoadMore: () => {}
   };
   constructor(props) {
     super(props);
@@ -88,20 +90,57 @@ export default class MessageContainer extends Component {
     return <Message {...messageProps} />;
     // return <View />;
   };
-  _onLoadMore = args => {
-    const { onLoadEarlier } = this.props;
-    const { distanceFromEnd } = args;
-    if (distanceFromEnd > -100) {
-      onLoadEarlier();
+  _onScroll = event => {
+    const { onLoadMore } = this.props;
+    if (this._shouldLoadMore(event)) {
+      onLoadMore();
     }
   };
+  _shouldLoadMore = event => {
+    var canLoadMore =
+      typeof this.props.canLoadMore === "function"
+        ? this.props.canLoadMore()
+        : this.props.canLoadMore;
+
+    canLoadMore =
+      !this.props.isLoadingMore &&
+      canLoadMore &&
+      this._distanceFromEnd(event) < 80;
+    return canLoadMore;
+  };
+  _distanceFromEnd = event => {
+    let {
+      contentSize,
+      contentInset,
+      contentOffset,
+      layoutMeasurement
+    } = event.nativeEvent;
+
+    let contentLength;
+    let trailingInset;
+    let scrollOffset;
+    let viewportLength;
+    if (this.props.horizontal) {
+      contentLength = contentSize.width;
+      trailingInset = contentInset.right;
+      scrollOffset = contentOffset.x;
+      viewportLength = layoutMeasurement.width;
+    } else {
+      contentLength = contentSize.height;
+      trailingInset = contentInset.bottom;
+      scrollOffset = contentOffset.y;
+      viewportLength = layoutMeasurement.height;
+    }
+
+    return contentLength + trailingInset - scrollOffset - viewportLength;
+  };
   render() {
-    const { renderItem, isLoadEarlier, onLoadEarlier } = this.props;
+    const { renderItem, isLoadingMore } = this.props;
     const { dataSource } = this.state;
-    const { _flatList, _onLoadMore } = this;
+    const { _flatList, _onScroll } = this;
     return (
       <View style={[Styles.container]}>
-        <LoadingWrapper isLoading={isLoadEarlier}>
+        <LoadingWrapper isLoading={isLoadingMore}>
           <FlatList
             onLayout={({ nativeEvent }) => {
               const { height } = nativeEvent.layout;
@@ -128,8 +167,7 @@ export default class MessageContainer extends Component {
               };
               return renderItem(messageProps);
             }}
-            onEndReachedThreshold={-0.1}
-            onEndReached={_onLoadMore}
+            onScroll={_onScroll}
           />
         </LoadingWrapper>
       </View>

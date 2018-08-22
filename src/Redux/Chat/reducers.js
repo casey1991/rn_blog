@@ -5,6 +5,7 @@ import * as _ from "lodash";
 export const defaultPaginate = Immutable({
   offset: 0,
   limit: 10,
+  canLoadMore: true,
   isLoading: false
 });
 export const defaultState = Immutable({
@@ -58,6 +59,9 @@ const setLimit = (state, action) => {
 const setLoading = (state, action) => {
   return Immutable.setIn(state, ["paginate", "isLoading"], action.payload);
 };
+const setCanLoadMore = (state, action) => {
+  return Immutable.setIn(state, ["paginate", "canLoadMore"], action.payload);
+};
 export default handleActions(
   {
     [Types.RESET]: reset,
@@ -68,7 +72,8 @@ export default handleActions(
     [Types.CLEAN_MESSAGES]: cleanMessags,
     [Types.SET_LIMIT]: setLimit,
     [Types.SET_OFFSET]: setOffset,
-    [Types.SET_LOADING]: setLoading
+    [Types.SET_LOADING]: setLoading,
+    [Types.SET_CAN_LOAD_MORE]: setCanLoadMore
   },
   defaultState
 );

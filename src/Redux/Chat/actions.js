@@ -12,6 +12,7 @@ export const Types = {
   SET_LIMIT: PREFIX + "SET_LIMIT",
   SET_OFFSET: PREFIX + "SET_OFFSET",
   SET_LOADING: PREFIX + "SET_LOADING",
+  SET_CAN_LOAD_MORE: PREFIX + "SET_CAN_LOAD_MORE",
   CLEAN_MESSAGES: PREFIX + "CLEAN_ROOM", // clean messages & paginate when leave room
   SET_MESSAGE: PREFIX + "SET_MESSAGE",
   SET_SELECTED_ROOM: PREFIX + "SET_SELECTED_ROOM"
@@ -26,6 +27,7 @@ const cleanMessages = createAction(Types.CLEAN_MESSAGES);
 const setOffset = createAction(Types.SET_OFFSET);
 const setLimit = createAction(Types.SET_LIMIT);
 const setLoading = createAction(Types.SET_LOADING);
+const setCanLoadMore = createAction(Types.SET_CAN_LOAD_MORE);
 // saga actions
 const createRoom = createAction(Types.CREATE_ROOM);
 const createMessage = createAction(Types.CREATE_MESSAGE);
@@ -46,5 +48,6 @@ export const Actions = {
   setLimit,
   setOffset,
   setLoading,
-  setMessage
+  setMessage,
+  setCanLoadMore
 };

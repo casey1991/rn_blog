@@ -4,6 +4,7 @@ import { Actions as EntityActions } from "../Entity/actions";
 import { handleResponse } from "../utils";
 import chatService from "../../Services/APIServices/ChatServices";
 import { Schemas, Selector } from "../../Services";
+import * as _ from "lodash";
 
 const createRoom = function*() {};
 const createMessage = function*() {};
@@ -21,13 +22,15 @@ const getMessages = function*(action) {
   yield put(Actions.setLoading(true));
   const response = yield call(chatService.getMessages, action.payload);
   function* onSuccess(data) {
-    const { docs, limit, offset } = data;
+    const { docs, limit, offset, total } = data;
     const { result, entities } = Selector.normalize(docs, [Schemas.Message]);
     yield put(Actions.setMessages(result));
     yield put(EntityActions.addEntities(entities));
-    yield put(Actions.setLimit(limit));
-    yield put(Actions.setOffset(offset));
     yield put(Actions.setLoading(false));
+    yield put(Actions.setOffset(result.length + offset));
+    if (total <= limit + offset) {
+      yield put(Actions.setCanLoadMore(false));
+    }
   }
   function* onFailed(data) {
     yield put(Actions.setLoading(false));

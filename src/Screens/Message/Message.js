@@ -9,18 +9,21 @@ import { SafeAreaView } from "react-navigation";
 import { Actions } from "../../Redux/Chat/actions";
 import { Selector } from "../../Services";
 import * as _ from "lodash";
-
 class Message extends Component {
   constructor(props) {
     super(props);
   }
   componentDidMount = () => {
-    const { getMessages, room, offset, limit } = this.props;
+    const { getMessages, room, limit, offset } = this.props;
     getMessages({ room, offset, limit });
   };
   componentWillUnmount = () => {
     const { cleanMessages } = this.props;
     cleanMessages();
+  };
+  _onLoadMore = () => {
+    const { getMessages, limit, offset, room } = this.props;
+    getMessages({ room, offset, limit });
   };
   _renderHeader = () => {
     const {
@@ -43,11 +46,10 @@ class Message extends Component {
       sendMessage,
       room,
       currentUser,
-      getMessages,
       isLoading,
-      offset,
-      limit
+      canLoadMore
     } = this.props;
+    const { _onLoadMore } = this;
     return (
       <SafeAreaView
         style={[{ flex: 1, backgroundColor: "#FFF" }]}
@@ -55,15 +57,12 @@ class Message extends Component {
       >
         <ThemeProvider>
           <Chat
+            canLoadMore={canLoadMore}
+            isLoadingMore={isLoading}
+            onLoadMore={_onLoadMore}
             renderHeader={this._renderHeader}
             messages={messages}
             user={currentUser}
-            isLoadEarlier={isLoading}
-            onLoadEarlier={() => {
-              if (!isLoading) {
-                getMessages({ room, offset: offset + limit, limit });
-              }
-            }}
             onSend={data => {
               sendMessage(_.assign(data, { room: room }));
             }}
@@ -80,6 +79,7 @@ const mapStateToProps = state => ({
   offset: state.chat.paginate.offset,
   limit: state.chat.paginate.limit,
   isLoading: state.chat.paginate.isLoading,
+  canLoadMore: state.chat.paginate.canLoadMore,
   messages: Selector.hydrateEntities(state, state.chat.messages, "Message")
 });
 const mapDispatchToProps = dispatch =>
@@ -87,7 +87,8 @@ const mapDispatchToProps = dispatch =>
     {
       getMessages: Actions.getMessages,
       sendMessage: Actions.sendMessage,
-      cleanMessages: Actions.cleanMessages
+      cleanMessages: Actions.cleanMessages,
+      setOffset: Actions.setOffset
     },
     dispatch
   );
