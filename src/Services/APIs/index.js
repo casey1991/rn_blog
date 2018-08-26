@@ -1,10 +1,8 @@
 import { create } from "apisauce";
 import { store } from "../../Redux/index";
-
+import { getConfig } from "../../Config";
 export const api = create({
-  baseURL: "http://localhost:3000"
-  // baseURL: "http://10.30.15.37:3000"
-  // baseURL: "http://192.168.1.101:3000"
+  baseURL: getConfig().API_URL
 });
 
 api.addRequestTransform(request => {
