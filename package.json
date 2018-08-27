@@ -3,7 +3,7 @@
   "private": true,
   "scripts": {
     "start": "NODE_ENV=production exp start",
-    "start:development": "NODE_ENV=development exp start"
+    "start:dev": "NODE_ENV=development exp start"
   },
   "dependencies": {
     "apisauce": "^0.16.0",
