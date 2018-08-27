@@ -10,3 +10,6 @@ api.addRequestTransform(request => {
     request.headers["Authorization"] = "Bearer " + store.getState().auth.token;
   }
 });
+api.addResponseTransform(response => {
+  console.log(response);
+});

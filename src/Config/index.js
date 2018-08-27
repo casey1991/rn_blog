@@ -1,7 +1,7 @@
 import Development from "./development";
-import Production from "./development";
+import Production from "./production";
 export const getConfig = () => {
-  if (process.env.NODE_ENV === "development") {
+  if (process.env.RN_ENV === "development") {
     return Development;
   }
   return Production;
