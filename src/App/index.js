@@ -6,7 +6,8 @@ import { store } from "../Redux";
 import { Provider as PaperProvider } from "react-native-paper";
 import NavigationnServices from "../Services/NavigationServices";
 import { DefaultTheme } from "react-native-paper";
-import { Colors } from "../Themes";
+import {Colors} from '../Themes'
+require("../Services/Socket");
 const theme = {
   ...DefaultTheme,
   roundness: 2,
