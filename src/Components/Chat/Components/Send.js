@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Text, TouchableOpacity } from "react-native";
+import { Text, TouchableOpacity, View } from "react-native";
 import PropTypes from "prop-types";
 import { styles } from "../Styles/Send.styles";
 import Strings from "../Styles/Strings";
@@ -22,16 +22,18 @@ export default class SendButton extends Component {
     const { onPress, disabled } = this.props;
     const enableStyle = !disabled ? "ENABLE" : "DISABLE";
     return (
-      <TouchableOpacity
-        style={[
-          styles[enableStyle].sendButton,
-          styles[enableStyle].buttonStyle
-        ]}
-        disabled={disabled}
-        onPress={onPress}
-      >
-        <Text style={styles[enableStyle].text}>{this.props.label}</Text>
-      </TouchableOpacity>
+      <View style={[{ alignItems: "center", justifyContent: "center" }]}>
+        <TouchableOpacity
+          style={[
+            styles[enableStyle].sendButton,
+            styles[enableStyle].buttonStyle
+          ]}
+          disabled={disabled}
+          onPress={onPress}
+        >
+          <Text style={styles[enableStyle].text}>{this.props.label}</Text>
+        </TouchableOpacity>
+      </View>
     );
   }
 }

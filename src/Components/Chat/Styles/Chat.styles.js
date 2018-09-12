@@ -9,7 +9,7 @@ export const styles = StyleSheet.create({
   layoutMessageContainer: {
     flex: 1
   },
-  layoutBottomActions: {
+  layoutActions: {
     borderTopWidth: StyleSheet.hairlineWidth,
     borderTopColor: Colors.white,
     backgroundColor: Colors.white,
@@ -20,7 +20,5 @@ export const styles = StyleSheet.create({
   layoutTextInput: {
     flex: 1
   },
-  layoutActions: {
-    flexDirection: "row"
-  }
+  layoutSend: {}
 });

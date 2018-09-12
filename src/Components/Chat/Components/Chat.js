@@ -14,6 +14,7 @@ export default class Chat extends Component {
   static propTypes = {
     messages: PropTypes.arrayOf(PropTypes.object),
     renderMessage: PropTypes.func,
+    renderActions: PropTypes.func,
     user: PropTypes.object,
     onSend: PropTypes.func,
     canLoadMore: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
@@ -78,15 +79,30 @@ export default class Chat extends Component {
       />
     );
   };
-  renderInputToolBar = () => {
+  _renderInputToolBar = () => {
     const { onInputTextChanged } = this;
     const { text } = this.state;
     return <InputToolBar text={text} onInputTextChanged={onInputTextChanged} />;
   };
-  renderSend = () => {
+  _renderSend = () => {
     const { onSend } = this;
     const { text } = this.state;
     return <Send disabled={text.trim().length <= 0} onPress={onSend} />;
+  };
+  _renderActions = () => {
+    const { renderActions } = this.props;
+    if (renderActions) {
+      return renderActions();
+    } else {
+      return (
+        <View style={{ flex: 1, flexDirection: "row" }}>
+          <View style={styles.layoutTextInput}>
+            {this._renderInputToolBar()}
+          </View>
+          <View style={styles.layoutSend}>{this._renderSend()}</View>
+        </View>
+      );
+    }
   };
   render() {
     return (
@@ -96,11 +112,12 @@ export default class Chat extends Component {
           <View style={[styles.layoutMessageContainer]}>
             {this.renderMessages()}
           </View>
-          <View style={[styles.layoutBottomActions]}>
-            <View style={[styles.layoutTextInput]}>
-              {this.renderInputToolBar()}
-            </View>
-            <View style={[styles.layoutActions]}>{this.renderSend()}</View>
+          <View style={[styles.layoutActions]}>
+            {this._renderActions()}
+            {/* <View style={[styles.layoutTextInput]}> */}
+            {/* {this.renderInputToolBar()} */}
+            {/* </View> */}
+            {/* <View style={[styles.layoutActions]}>{this.renderSend()}</View> */}
           </View>
         </KeyboardAvoidingView>
       </View>
