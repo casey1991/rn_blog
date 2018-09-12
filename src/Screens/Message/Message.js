@@ -15,7 +15,7 @@ class Message extends Component {
         style={[{ flex: 1, backgroundColor: "#FFF" }]}
         forceInset={{ bottom: "always", top: "never" }}
       >
-        <Room />
+        <Room navigation={this.props.navigation} />
       </SafeAreaView>
     );
   }

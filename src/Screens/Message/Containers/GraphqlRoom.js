@@ -21,9 +21,16 @@ class GraphqlRoom extends Component {
     `;
   }
   _renderHeader = () => {
+    const {
+      navigation: { goBack }
+    } = this.props;
     return (
       <Toolbar>
-        <ToolbarBackAction onPress={() => {}} />
+        <ToolbarBackAction
+          onPress={() => {
+            goBack(null);
+          }}
+        />
         <ToolbarContent title="Message" />
       </Toolbar>
     );
@@ -46,7 +53,7 @@ class GraphqlRoom extends Component {
                 renderHeader={this._renderHeader}
                 messages={data.messages}
                 user={currentUser}
-                renderItem={props => <Chat.Message {...props} />}
+                renderMessage={props => <Chat.Message {...props} />}
               />
             </ThemeProvider>
           );

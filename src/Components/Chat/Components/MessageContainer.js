@@ -10,7 +10,7 @@ import * as _ from "lodash";
 export default class MessageContainer extends Component {
   static propTypes = {
     messages: PropTypes.arrayOf(PropTypes.object),
-    renderItem: PropTypes.func,
+    renderMessage: PropTypes.func,
     user: PropTypes.object,
     canLoadMore: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
     isLoadingMore: PropTypes.bool,
@@ -18,7 +18,7 @@ export default class MessageContainer extends Component {
   };
   static defaultProps = {
     messages: [],
-    renderItem: () => {},
+    renderMessage: () => {},
     user: {},
     canLoadMore: false,
     isLoadingMore: false,
@@ -78,7 +78,7 @@ export default class MessageContainer extends Component {
     });
     return result;
   }
-  renderItem = ({ item }) => {
+  _renderMessage = ({ item }) => {
     const messageProps = {
       message: item,
       position:
@@ -135,7 +135,7 @@ export default class MessageContainer extends Component {
     return contentLength + trailingInset - scrollOffset - viewportLength;
   };
   render() {
-    const { renderItem, isLoadingMore } = this.props;
+    const { renderMessage, isLoadingMore } = this.props;
     const { dataSource } = this.state;
     const { _flatList, _onScroll } = this;
     return (
@@ -165,7 +165,7 @@ export default class MessageContainer extends Component {
                     ? Strings.MESSAGE_POSITION_RIGHT
                     : Strings.MESSAGE_POSITION_LEFT
               };
-              return renderItem(messageProps);
+              return renderMessage(messageProps);
             }}
             onScroll={_onScroll}
           />

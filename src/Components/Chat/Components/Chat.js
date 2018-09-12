@@ -13,7 +13,7 @@ import Time from "./Time";
 export default class Chat extends Component {
   static propTypes = {
     messages: PropTypes.arrayOf(PropTypes.object),
-    renderItem: PropTypes.func,
+    renderMessage: PropTypes.func,
     user: PropTypes.object,
     onSend: PropTypes.func,
     canLoadMore: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
@@ -22,7 +22,7 @@ export default class Chat extends Component {
   };
   static defaultProps = {
     messages: [],
-    renderItem: () => {},
+    renderMessage: () => {},
     user: {},
     onSend: () => {},
     canLoadMore: false,
@@ -64,14 +64,14 @@ export default class Chat extends Component {
       canLoadMore,
       isLoadingMore,
       onLoadMore,
-      renderItem
+      renderMessage
     } = this.props;
     return (
       <MessageContainer
         messages={messages}
         user={user}
         ref={this._messageContainer}
-        renderItem={renderItem}
+        renderMessage={renderMessage}
         canLoadMore={canLoadMore}
         isLoadingMore={isLoadingMore}
         onLoadMore={onLoadMore}
