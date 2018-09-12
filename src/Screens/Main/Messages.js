@@ -17,9 +17,14 @@ class Messages extends Component {
     )
   });
   render() {
+    const { navigation, setSelectedRoom } = this.props;
     return (
       <View style={[{ flex: 1 }]}>
-        <GraphqlRooms />
+        <GraphqlRooms
+          onRoomSelected={roomId => {
+            setSelectedRoom(roomId);
+          }}
+        />
       </View>
     );
   }

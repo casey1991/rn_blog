@@ -1,12 +1,19 @@
 /* @flow */
 
 import React, { Component } from "react";
-import { View, Text, StyleSheet, FlatList } from "react-native";
+import { StyleSheet, FlatList } from "react-native";
+import PropTypes from "prop-types";
 import { ListItem } from "../../../Components/Common/ListItem/ListItem";
 import ggl from "graphql-tag";
 import { Query } from "react-apollo";
 
 export class GraphqlRooms extends Component {
+  static propTypes = {
+    onRoomSelected: PropTypes.func
+  };
+  static defaultProps = {
+    onRoomSelected: () => {}
+  };
   constructor(props) {
     super(props);
     this._getRooms = ggl`
@@ -18,18 +25,18 @@ export class GraphqlRooms extends Component {
     }`;
   }
   _renderItem = ({ item }) => {
+    const { onRoomSelected } = this.props;
     return (
       <ListItem
         title={item.name}
         onPress={() => {
-          setSelectedRoom(item._id);
-          navigate("ChatStack");
+          onRoomSelected(item.id);
         }}
       />
     );
   };
   _keyExtractor = (item, index) => {
-    return index + "";
+    return item.id;
   };
   render() {
     return (
