@@ -23,6 +23,7 @@ class Messages extends Component {
         <GraphqlRooms
           onRoomSelected={roomId => {
             setSelectedRoom(roomId);
+            navigation.navigate("Message");
           }}
         />
       </View>
