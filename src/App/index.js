@@ -6,8 +6,9 @@ import { store } from "../Redux";
 import { Provider as PaperProvider } from "react-native-paper";
 import NavigationnServices from "../Services/NavigationServices";
 import { DefaultTheme } from "react-native-paper";
-import {Colors} from '../Themes'
-require("../Services/Socket");
+import { Colors } from "../Themes";
+import { Graphql } from "./Containers";
+
 const theme = {
   ...DefaultTheme,
   roundness: 2,
@@ -18,19 +19,24 @@ const theme = {
   }
 };
 export class App extends Component {
+  constructor(props) {
+    super(props);
+  }
   render() {
     return (
       <Provider store={store}>
         <PaperProvider theme={theme}>
-          <StatusBar
-            barStyle="light-content"
-            backgroundColor={Colors.PRIMARY}
-          />
-          <Root
-            ref={navigatorRef => {
-              NavigationnServices.setTopLevelNavigator(navigatorRef);
-            }}
-          />
+          <Graphql>
+            <StatusBar
+              barStyle="light-content"
+              backgroundColor={Colors.PRIMARY}
+            />
+            <Root
+              ref={navigatorRef => {
+                NavigationnServices.setTopLevelNavigator(navigatorRef);
+              }}
+            />
+          </Graphql>
         </PaperProvider>
       </Provider>
     );
