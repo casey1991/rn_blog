@@ -38,6 +38,10 @@ class GraphqlRoom extends Component {
           createMessage(roomId:$roomId,text:$text,type:$type){
             id
             text
+            user{
+              id
+              name
+            }
           }
         }
     `;
@@ -59,7 +63,24 @@ class GraphqlRoom extends Component {
   };
   _renderActions = () => {
     return (
-      <Mutation mutation={this._CREATE_MESSAGE}>
+      <Mutation
+        mutation={this._CREATE_MESSAGE}
+        update={(cache, { data: { createMessage } }) => {
+          const { messages } = cache.readQuery({
+            query: this._QUERY_MESSAGES,
+            variables: {
+              room: "5b76d92b65c7305de53818c1"
+            }
+          });
+          cache.writeQuery({
+            query: this._QUERY_MESSAGES,
+            variables: {
+              room: "5b76d92b65c7305de53818c1"
+            },
+            data: { messages: messages.concat([createMessage]) }
+          });
+        }}
+      >
         {createMessage => (
           <View style={{ flex: 1, flexDirection: "row" }}>
             <View style={{ flex: 1 }}>
