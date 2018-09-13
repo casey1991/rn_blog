@@ -9,56 +9,60 @@ import { getMainDefinition } from "apollo-utilities";
 import { ApolloProvider } from "react-apollo";
 import { WebSocketLink } from "apollo-link-ws";
 import { store } from "../../Redux";
-const wsLink = new WebSocketLink({
-  uri: `ws://localhost:5000/`,
-  options: {
-    reconnect: true
-  }
-});
-const httpLink = new HttpLink({
-  uri: "http://localhost:3000/graphql"
-});
-const errorLink = onError(({ graphQLErrors, networkError }) => {
-  if (graphQLErrors)
-    graphQLErrors.map(({ message, locations, path }) =>
-      console.log(
-        `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`
-      )
-    );
-  if (networkError) console.log(`[Network error]: ${networkError}`);
-});
-const link = split(
-  // split based on operation type
-  ({ query }) => {
-    const { kind, operation } = getMainDefinition(query);
-    return kind === "OperationDefinition" && operation === "subscription";
-  },
-  wsLink,
-  httpLink
-);
-const authLink = setContext((_, { headers }) => {
-  // get the authentication token from local storage if it exists
-  const token = store.getState().auth.token;
-  // return the headers to the context so httpLink can read them
-  return {
-    headers: {
-      ...headers,
-      authorization: token ? `Bearer ${token}` : ""
-    }
-  };
-});
-const client = new ApolloClient({
-  link: authLink.concat(errorLink).concat(link),
-  cache: new InMemoryCache()
-});
-
 export default class Graphql extends Component {
   constructor(props) {
     super(props);
+    this._authLink = setContext((_, { headers }) => {
+      const token = store.getState().auth.token;
+      return {
+        headers: {
+          ...headers,
+          authorization: token ? `Bearer ${token}` : ""
+        }
+      };
+    });
+    this._httpLink = new HttpLink({
+      uri: "http://localhost:3000/graphql"
+    });
+    this._wsLink = new WebSocketLink({
+      uri: `http://localhost:3000/graphql`,
+      options: {
+        reconnect: true,
+        connectionParams: () => {
+          const token = store.getState().auth.token;
+          return { token: token ? token : "" };
+        }
+      }
+    });
+    this._wsLink.subscriptionClient;
+    this._splitLink = split(
+      // split based on operation type
+      ({ query }) => {
+        const { kind, operation } = getMainDefinition(query);
+        return kind === "OperationDefinition" && operation === "subscription";
+      },
+      this._wsLink,
+      this._httpLink
+    );
+    this._errorLink = onError(({ graphQLErrors, networkError }) => {
+      if (graphQLErrors)
+        graphQLErrors.map(({ message, locations, path }) =>
+          console.log(
+            `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`
+          )
+        );
+      if (networkError) console.log(`[Network error]: ${networkError}`);
+    });
+    this._client = new ApolloClient({
+      link: this._authLink.concat(this._errorLink).concat(this._splitLink),
+      cache: new InMemoryCache()
+    });
   }
   render() {
     return (
-      <ApolloProvider client={client}>{this.props.children}</ApolloProvider>
+      <ApolloProvider client={this._client}>
+        {this.props.children}
+      </ApolloProvider>
     );
   }
 }

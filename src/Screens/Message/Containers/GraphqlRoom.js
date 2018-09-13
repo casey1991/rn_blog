@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { View } from "react-native";
 import ggl from "graphql-tag";
 import PropType from "prop-types";
-import { Query, Mutation } from "react-apollo";
+import { Query, Mutation, Subscription } from "react-apollo";
 import * as _ from "lodash";
 import { Toolbar } from "../../../Components/Toolbars/Toolbar";
 import { ToolbarContent } from "../../../Components/Toolbars/ToolbarContent";
@@ -51,6 +51,18 @@ export class GraphqlRoom extends Component {
           }
         }
     `;
+    this._MESSAGE_CREATED = ggl`
+      subscription messageCreated($room: String!) {
+        messageCreated(roomId: $room) {
+          id
+          text
+          user{
+            id
+            name
+          }
+        }
+      }
+    `;
   }
   _renderHeader = () => {
     const {
@@ -72,21 +84,21 @@ export class GraphqlRoom extends Component {
     return (
       <Mutation
         mutation={this._CREATE_MESSAGE}
-        update={(cache, { data: { createMessage } }) => {
-          const { messages } = cache.readQuery({
-            query: this._QUERY_MESSAGES,
-            variables: {
-              room: room
-            }
-          });
-          cache.writeQuery({
-            query: this._QUERY_MESSAGES,
-            variables: {
-              room: room
-            },
-            data: { messages: messages.concat([createMessage]) }
-          });
-        }}
+        // update={(cache, { data: { createMessage } }) => {
+        //   const { messages } = cache.readQuery({
+        //     query: this._QUERY_MESSAGES,
+        //     variables: {
+        //       room: room
+        //     }
+        //   });
+        //   cache.writeQuery({
+        //     query: this._QUERY_MESSAGES,
+        //     variables: {
+        //       room: room
+        //     },
+        //     data: { messages: messages.concat([createMessage]) }
+        //   });
+        // }}
       >
         {createMessage => (
           <View style={{ flex: 1, flexDirection: "row" }}>
@@ -123,6 +135,7 @@ export class GraphqlRoom extends Component {
   };
   render() {
     const { user, room } = this.props;
+    // this._renderSubscription();
     return (
       <Query
         query={this._QUERY_MESSAGES}
@@ -130,21 +143,33 @@ export class GraphqlRoom extends Component {
           room: room
         }}
       >
-        {({ loading, error, data }) => {
+        {({ loading, error, data, subscribeToMore }) => {
           if (loading) return "Loading...";
           if (error) return `Error! ${error.message}`;
+          const messages = _.map(data.messages, ({ id: _id, ...rest }) => {
+            const formated = { _id, ...rest };
+            const user = formated.user;
+            return {
+              ...formated,
+              user: { ...user, _id: user.id }
+            };
+          });
+          subscribeToMore({
+            document: this._MESSAGE_CREATED,
+            variables: { room: room },
+            updateQuery: (prev, { subscriptionData }) => {
+              if (!subscriptionData.data) return prev;
+              const newMessage = subscriptionData.data.messageCreated;
+              return Object.assign({}, prev, {
+                messages: [newMessage, ...prev.messages]
+              });
+            }
+          });
           return (
             <ThemeProvider>
               <Chat
                 renderHeader={this._renderHeader}
-                messages={_.map(data.messages, ({ id: _id, ...rest }) => {
-                  const formated = { _id, ...rest };
-                  const user = formated.user;
-                  return {
-                    ...formated,
-                    user: { ...user, _id: user.id }
-                  };
-                })}
+                messages={messages}
                 user={user}
                 renderMessage={props => <Chat.Message {...props} />}
                 renderActions={this._renderActions}
