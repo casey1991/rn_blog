@@ -7,12 +7,10 @@ import { styles } from "../Styles/InputToolbar.styles";
 export default class InputToolBar extends Component {
   static propTypes = {
     text: PropTypes.string,
-    onSend: PropTypes.func,
     onInputTextChanged: PropTypes.func
   };
   static defalutProps = {
     text: undefined,
-    onSend: () => {},
     onInputTextChanged: () => {}
   };
   constructor(props) {

@@ -17,6 +17,9 @@ import {
 class GraphqlRoom extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      text: null
+    };
     this._QUERY_MESSAGES = ggl`
         query Room($room:String!){
             messages(roomId: $room){
@@ -55,7 +58,14 @@ class GraphqlRoom extends Component {
         {createMessage => (
           <View style={{ flex: 1, flexDirection: "row" }}>
             <View style={{ flex: 1 }}>
-              <InputToolBar />
+              <InputToolBar
+                text={this.state.text}
+                onInputTextChanged={value => {
+                  this.setState({
+                    text: value
+                  });
+                }}
+              />
             </View>
             <View>
               <Send
@@ -63,9 +73,12 @@ class GraphqlRoom extends Component {
                   createMessage({
                     variables: {
                       roomId: "5b76d92b65c7305de53818c1",
-                      text: "text",
+                      text: this.state.text,
                       type: 1
                     }
+                  });
+                  this.setState({
+                    text: null
                   });
                 }}
               />
