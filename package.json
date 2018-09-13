@@ -11,6 +11,7 @@
     "babel-plugin-module-resolver": "^3.1.1",
     "expo": "^26.1.1",
     "graphql": "^14.0.2",
+    "lodash": "^4.17.11",
     "md5": "^2.2.1",
     "moment": "^2.22.2",
     "normalizr": "^3.2.4",

@@ -4,6 +4,7 @@ import { bindActionCreators } from "redux";
 import { View } from "react-native";
 import ggl from "graphql-tag";
 import { Query, Mutation } from "react-apollo";
+import * as _ from "lodash";
 import { Toolbar } from "../../../Components/Toolbars/Toolbar";
 import { ToolbarContent } from "../../../Components/Toolbars/ToolbarContent";
 import { ToolbarBackAction } from "../../../Components/Toolbars/ToolbarBackAction";
@@ -25,6 +26,10 @@ class GraphqlRoom extends Component {
             messages(roomId: $room){
                 id
                 text
+                user{
+                  id
+                  name
+                }
             }
         }
     `;
@@ -104,7 +109,14 @@ class GraphqlRoom extends Component {
             <ThemeProvider>
               <Chat
                 renderHeader={this._renderHeader}
-                messages={data.messages}
+                messages={_.map(data.messages, ({ id: _id, ...rest }) => {
+                  const formated = { _id, ...rest };
+                  const user = formated.user;
+                  return {
+                    ...formated,
+                    user: { ...user, _id: user.id }
+                  };
+                })}
                 user={currentUser}
                 renderMessage={props => <Chat.Message {...props} />}
                 renderActions={this._renderActions}
