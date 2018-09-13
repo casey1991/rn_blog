@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { SafeAreaView } from "react-navigation";
-import { Room } from "./Containers/GraphqlRoom";
+import { GraphqlRoom } from "./Containers/GraphqlRoom";
 import * as _ from "lodash";
 class Message extends Component {
   constructor(props) {
@@ -10,17 +10,25 @@ class Message extends Component {
   }
 
   render() {
+    const { currentUser, navigation, selectedRoom } = this.props;
     return (
       <SafeAreaView
         style={[{ flex: 1, backgroundColor: "#FFF" }]}
         forceInset={{ bottom: "always", top: "never" }}
       >
-        <Room navigation={this.props.navigation} />
+        <GraphqlRoom
+          navigation={navigation}
+          user={currentUser}
+          room={selectedRoom}
+        />
       </SafeAreaView>
     );
   }
 }
-const mapStateToProps = state => ({});
+const mapStateToProps = state => ({
+  currentUser: state.auth.user,
+  selectedRoom: state.chat.selectedRoom
+});
 const mapDispatchToProps = dispatch => bindActionCreators({}, dispatch);
 export const MessageScreen = connect(
   mapStateToProps,

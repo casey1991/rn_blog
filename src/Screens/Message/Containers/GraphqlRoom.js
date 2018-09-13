@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { View } from "react-native";
 import ggl from "graphql-tag";
+import PropType from "prop-types";
 import { Query, Mutation } from "react-apollo";
 import * as _ from "lodash";
 import { Toolbar } from "../../../Components/Toolbars/Toolbar";
@@ -15,7 +16,14 @@ import {
   Send
 } from "../../../Components/Chat";
 
-class GraphqlRoom extends Component {
+export class GraphqlRoom extends Component {
+  static defaultProps = {
+    user: PropType.shape({
+      _id: PropType.string.isRequired
+    }),
+    room: PropType.string.isRequired,
+    navigation: PropType.object.isRequired
+  };
   constructor(props) {
     super(props);
     this.state = {
@@ -62,6 +70,7 @@ class GraphqlRoom extends Component {
     );
   };
   _renderActions = () => {
+    const { room } = this.props;
     return (
       <Mutation
         mutation={this._CREATE_MESSAGE}
@@ -69,13 +78,13 @@ class GraphqlRoom extends Component {
           const { messages } = cache.readQuery({
             query: this._QUERY_MESSAGES,
             variables: {
-              room: "5b76d92b65c7305de53818c1"
+              room: room
             }
           });
           cache.writeQuery({
             query: this._QUERY_MESSAGES,
             variables: {
-              room: "5b76d92b65c7305de53818c1"
+              room: room
             },
             data: { messages: messages.concat([createMessage]) }
           });
@@ -98,7 +107,7 @@ class GraphqlRoom extends Component {
                 onPress={() => {
                   createMessage({
                     variables: {
-                      roomId: "5b76d92b65c7305de53818c1",
+                      roomId: room,
                       text: this.state.text,
                       type: 1
                     }
@@ -115,12 +124,12 @@ class GraphqlRoom extends Component {
     );
   };
   render() {
-    const { currentUser } = this.props;
+    const { user, room } = this.props;
     return (
       <Query
         query={this._QUERY_MESSAGES}
         variables={{
-          room: "5b76d92b65c7305de53818c1"
+          room: room
         }}
       >
         {({ loading, error, data }) => {
@@ -138,7 +147,7 @@ class GraphqlRoom extends Component {
                     user: { ...user, _id: user.id }
                   };
                 })}
-                user={currentUser}
+                user={user}
                 renderMessage={props => <Chat.Message {...props} />}
                 renderActions={this._renderActions}
               />
@@ -149,12 +158,3 @@ class GraphqlRoom extends Component {
     );
   }
 }
-
-const mapStateToProps = state => ({
-  currentUser: state.auth.user
-});
-const mapDispatchToProps = dispatch => bindActionCreators({}, dispatch);
-export const Room = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(GraphqlRoom);
