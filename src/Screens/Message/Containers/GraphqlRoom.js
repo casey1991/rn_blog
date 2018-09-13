@@ -1,6 +1,4 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
 import { View } from "react-native";
 import ggl from "graphql-tag";
 import PropType from "prop-types";
