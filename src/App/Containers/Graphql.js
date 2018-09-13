@@ -5,6 +5,7 @@ import { HttpLink } from "apollo-link-http";
 import { split } from "apollo-link";
 import { setContext } from "apollo-link-context";
 import { onError } from "apollo-link-error";
+import { getMainDefinition } from "apollo-utilities";
 import { ApolloProvider } from "react-apollo";
 import { WebSocketLink } from "apollo-link-ws";
 import { store } from "../../Redux";
@@ -47,7 +48,7 @@ const authLink = setContext((_, { headers }) => {
   };
 });
 const client = new ApolloClient({
-  link: authLink.concat(httpLink),
+  link: authLink.concat(errorLink).concat(link),
   cache: new InMemoryCache()
 });
 
