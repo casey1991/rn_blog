@@ -9,6 +9,7 @@ import { getMainDefinition } from "apollo-utilities";
 import { ApolloProvider } from "react-apollo";
 import { WebSocketLink } from "apollo-link-ws";
 import { store } from "../../Redux";
+import { getConfig } from "../../Config";
 export default class Graphql extends Component {
   constructor(props) {
     super(props);
@@ -22,10 +23,10 @@ export default class Graphql extends Component {
       };
     });
     this._httpLink = new HttpLink({
-      uri: "http://localhost:3000/graphql"
+      uri: getConfig().API_URL + "/graphql"
     });
     this._wsLink = new WebSocketLink({
-      uri: `http://localhost:3000/graphql`,
+      uri: getConfig().API_URL + "/graphql",
       options: {
         reconnect: true,
         connectionParams: () => {

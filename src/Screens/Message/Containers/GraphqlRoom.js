@@ -142,6 +142,7 @@ export class GraphqlRoom extends Component {
         variables={{
           room: room
         }}
+        pollInterval={500}
       >
         {({ loading, error, data, subscribeToMore }) => {
           if (loading) return "Loading...";
