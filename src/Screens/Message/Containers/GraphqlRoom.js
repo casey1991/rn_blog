@@ -84,21 +84,21 @@ export class GraphqlRoom extends Component {
     return (
       <Mutation
         mutation={this._CREATE_MESSAGE}
-        // update={(cache, { data: { createMessage } }) => {
-        //   const { messages } = cache.readQuery({
-        //     query: this._QUERY_MESSAGES,
-        //     variables: {
-        //       room: room
-        //     }
-        //   });
-        //   cache.writeQuery({
-        //     query: this._QUERY_MESSAGES,
-        //     variables: {
-        //       room: room
-        //     },
-        //     data: { messages: messages.concat([createMessage]) }
-        //   });
-        // }}
+        update={(cache, { data: { createMessage } }) => {
+          const { messages } = cache.readQuery({
+            query: this._QUERY_MESSAGES,
+            variables: {
+              room: room
+            }
+          });
+          cache.writeQuery({
+            query: this._QUERY_MESSAGES,
+            variables: {
+              room: room
+            },
+            data: { messages: messages.concat([createMessage]) }
+          });
+        }}
       >
         {createMessage => (
           <View style={{ flex: 1, flexDirection: "row" }}>
@@ -154,17 +154,17 @@ export class GraphqlRoom extends Component {
               user: { ...user, _id: user.id }
             };
           });
-          subscribeToMore({
-            document: this._MESSAGE_CREATED,
-            variables: { room: room },
-            updateQuery: (prev, { subscriptionData }) => {
-              if (!subscriptionData.data) return prev;
-              const newMessage = subscriptionData.data.messageCreated;
-              return Object.assign({}, prev, {
-                messages: [newMessage, ...prev.messages]
-              });
-            }
-          });
+          // subscribeToMore({
+          //   document: this._MESSAGE_CREATED,
+          //   variables: { room: room },
+          //   updateQuery: (prev, { subscriptionData }) => {
+          //     if (!subscriptionData.data) return prev;
+          //     const newMessage = subscriptionData.data.messageCreated;
+          //     return Object.assign({}, prev, {
+          //       messages: [newMessage, ...prev.messages]
+          //     });
+          //   }
+          // });
           return (
             <ThemeProvider>
               <Chat
