@@ -40,7 +40,7 @@ export class GraphqlRooms extends Component {
   };
   render() {
     return (
-      <Query query={this._getRooms}>
+      <Query query={this._getRooms} pollInterval={500}>
         {({ loading, error, data }) => {
           if (loading) return "Loading...";
           if (error) return `Error! ${error.message}`;
