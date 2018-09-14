@@ -6,8 +6,8 @@ import { handleResponse } from "../utils";
 export const login = function*(action) {
   const response = yield call(authService.login, action.payload);
   function* onSuccess(data) {
-    const token = data.accessToken;
-    const expiresIn = data.expiresIn;
+    const token = data.access_token;
+    const expiresIn = data.expires_in;
     yield put(Actions.setToken(token));
     yield put(Actions.setTokenExpire(expiresIn));
     yield put(Actions.getCurrentUser());
