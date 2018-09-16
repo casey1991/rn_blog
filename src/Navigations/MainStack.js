@@ -11,7 +11,7 @@ import { Icon } from "../Components/Common/Icon/Icon";
 export const MainStack = createMaterialBottomTabNavigator(
   {
     Home: {
-      screen: createStackNavigator({ HomeScreen }, { headerMode: "none" }),
+      screen: createStackNavigator({ HomeScreen }, { headerMode: "screen" }),
       navigationOptions: {
         title: "Home",
         tabBarIcon: ({ focused, tintColor }) => (

@@ -4,34 +4,32 @@ import { bindActionCreators } from "redux";
 import { FloatActionButton } from "../../Components/Common/Button/FloatActionButton";
 import { connect } from "react-redux";
 import { Actions } from "../../Redux/Article/actions";
-import { HomeTabScreen } from "./Home/index";
 import { styles } from "./Home.styles";
 import { BottomSheet } from "../../Components/Common/BottomSheet";
-import Immutable from "seamless-immutable";
-
+import { GraphqlGoods } from "./Containers/GraphqlGoodss";
+import { Toolbar } from "../../Components/Toolbars/Toolbar";
+import { ToolbarContent } from "../../Components/Toolbars/ToolbarContent";
 class Home extends Component {
+  static navigationOptions = () => ({
+    header: () => (
+      <Toolbar>
+        <ToolbarContent title="Home" titleStyle={[styles.toolbarTitle]} />
+      </Toolbar>
+    )
+  });
   constructor(props) {
     super(props);
     this.state = {
       modalVisible: false
     };
   }
-  componentDidMount() {
-    // const old = { hei: ["1"] };
-    // const result = Immutable.updateIn(
-    //   old,
-    //   ["hei"],
-    //   arg => {
-    //     return ["2"];
-    //   },
-    //   { deep: true }
-    // );
-  }
   render() {
     const { modalVisible } = this.state;
     return (
       <View style={[styles.layoutContainer]}>
-        <HomeTabScreen />
+        <View style={{ flex: 1 }}>
+          <GraphqlGoods />
+        </View>
         <BottomSheet
           visible={modalVisible}
           onOuterClicked={() => {
